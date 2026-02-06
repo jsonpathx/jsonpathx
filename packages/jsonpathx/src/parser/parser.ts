@@ -1,8 +1,10 @@
 import type {
   ChildNode,
+  FilterNode,
   PathNode,
   PathRootNode,
   RecursiveNode,
+  ScriptNode,
   SegmentNode,
   SelectorNode,
   TypeSelectorNode
@@ -112,7 +114,7 @@ function parseSinglePath(source: string): PathRootNode {
   return { type: "Path", segments };
 }
 
-function readRecursiveSelector(source: string, startIndex: number) {
+function readRecursiveSelector(source: string, startIndex: number): { node: RecursiveNode; nextIndex: number } {
   if (startIndex >= source.length) {
     return { node: { type: "Recursive" } as RecursiveNode, nextIndex: startIndex };
   }
@@ -120,10 +122,8 @@ function readRecursiveSelector(source: string, startIndex: number) {
   if (char === "[") {
     const result = parseBracketExpression(source, startIndex);
     if (result.node.type === "Child") {
-      return {
-        node: { type: "Recursive", selector: result.node.selector },
-        nextIndex: result.nextIndex
-      };
+      const node: RecursiveNode = { type: "Recursive", selector: result.node.selector };
+      return { node, nextIndex: result.nextIndex };
     }
     return {
       node: { type: "Recursive" } as RecursiveNode,
@@ -131,33 +131,27 @@ function readRecursiveSelector(source: string, startIndex: number) {
     };
   }
   if (char === "*") {
-    return {
-      node: { type: "Recursive", selector: { type: "WildcardSelector" } },
-      nextIndex: startIndex + 1
-    };
+    const node: RecursiveNode = { type: "Recursive", selector: { type: "WildcardSelector" } };
+    return { node, nextIndex: startIndex + 1 };
   }
   if (char === "`") {
     const { name, nextIndex } = readEscapedName(source, startIndex + 1);
-    return {
-      node: {
-        type: "Recursive",
-        selector: { type: "IdentifierSelector", name, quoted: false, escaped: true }
-      },
-      nextIndex
+    const node: RecursiveNode = {
+      type: "Recursive",
+      selector: { type: "IdentifierSelector", name, quoted: false, escaped: true }
     };
+    return { node, nextIndex };
   }
   if (isIdentifierStart(char)) {
     const ident = readIdentifier(source, startIndex);
     if (!ident) {
       throw new ParseError("Invalid recursive identifier", startIndex);
     }
-    return {
-      node: {
-        type: "Recursive",
-        selector: { type: "IdentifierSelector", name: ident.value, quoted: false, escaped: false }
-      },
-      nextIndex: ident.end
+    const node: RecursiveNode = {
+      type: "Recursive",
+      selector: { type: "IdentifierSelector", name: ident.value, quoted: false, escaped: false }
     };
+    return { node, nextIndex: ident.end };
   }
   const typeSelector = readTypeSelector(source, startIndex);
   if (typeSelector) {
@@ -169,7 +163,10 @@ function readRecursiveSelector(source: string, startIndex: number) {
   return { node: { type: "Recursive" } as RecursiveNode, nextIndex: startIndex };
 }
 
-function readChildSelector(source: string, startIndex: number) {
+function readChildSelector(
+  source: string,
+  startIndex: number
+): { node: ChildNode | FilterNode | ScriptNode | TypeSelectorNode; nextIndex: number } {
   if (startIndex >= source.length) {
     throw new ParseError("Expected selector after '.'", startIndex);
   }

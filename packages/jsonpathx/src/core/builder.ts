@@ -224,7 +224,7 @@ export class QueryBuilder<T = unknown> {
     avg?: number;
   }> {
     const results = await this.execute();
-    const numeric = results.filter((value): value is number => typeof value === "number");
+    const numeric = results.filter((value) => typeof value === "number") as number[];
     const count = numeric.length;
     const sum = numeric.reduce((acc, value) => acc + value, 0);
     const min = count > 0 ? Math.min(...numeric) : undefined;

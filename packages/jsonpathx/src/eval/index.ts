@@ -38,7 +38,7 @@ export function evaluateExpression(
   if (policy.preventEval) {
     throw new Error("Evaluation is disabled (preventEval)");
   }
-  if (!policy.eval || policy.eval === false) {
+  if (policy.eval !== "native" && policy.eval !== "safe") {
     throw new Error("Evaluation is disabled (eval: false)");
   }
   const normalized = normalizeExpression(expression);

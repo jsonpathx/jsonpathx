@@ -143,7 +143,8 @@ export function isValidPath(path: string): boolean {
 }
 
 export function normalize(path: string): string {
-  return normalizePath(path);
+  const normalized = normalizePath(path);
+  return normalized.length === 1 ? normalized[0] : normalized.join(" | ");
 }
 
 export function parse(path: string): PathComponent[] {
@@ -354,8 +355,10 @@ function mapSelector(selector: SelectorNode): PathComponent {
     }
     case "UnionSelector":
       throw new Error("Union selectors are not supported by PathUtils.parse");
-    default:
-      throw new Error(`Unsupported selector for PathUtils.parse: ${selector.type}`);
+    default: {
+      const _exhaustive: never = selector;
+      throw new Error(`Unsupported selector for PathUtils.parse: ${String(_exhaustive)}`);
+    }
   }
 }
 

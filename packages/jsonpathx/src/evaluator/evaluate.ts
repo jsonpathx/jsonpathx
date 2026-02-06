@@ -22,6 +22,9 @@ export type EvalOptions = EvalPolicy & {
 };
 
 export function evaluatePath(ast: PathNode, json: unknown, options: EvalOptions = {}): EvalContext[] {
+  if (ast.type === "UnionPath") {
+    return ast.paths.flatMap((path) => evaluatePath(path, json, options));
+  }
   const root = json;
   let contexts: EvalContext[] = [createRootContext(json, options.parent, options.parentProperty)];
   for (const segment of ast.segments) {
@@ -65,10 +68,11 @@ function applySegment(
 
 function applyRecursive(segment: RecursiveNode, contexts: EvalContext[]): EvalContext[] {
   const descendants = contexts.flatMap((context) => collectDescendants(context));
-  if (!segment.selector) {
+  const selector = segment.selector;
+  if (!selector) {
     return descendants;
   }
-  return descendants.flatMap((context) => applySelector(context, segment.selector));
+  return descendants.flatMap((context) => applySelector(context, selector));
 }
 
 function applyFilter(

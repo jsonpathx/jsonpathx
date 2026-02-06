@@ -1,6 +1,6 @@
 {
   "name": "jsonpathx",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": false,
   "description": "Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility.",
   "type": "module",
@@ -40,11 +40,12 @@
   ],
   "author": "Afzal Ahmad",
   "license": "MIT",
-  "homepage": "https://github.com/jsonpathx/jsonpathx#readme",
+  "homepage": "https://jsonpathx.github.io/jsonpathx/",
   "bugs": {
     "url": "https://github.com/jsonpathx/jsonpathx/issues"
   },
   "devDependencies": {
+    "@types/node": "^20.19.32",
     "esbuild": "^0.21.5",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"

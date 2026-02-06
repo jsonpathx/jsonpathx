@@ -1,0 +1,22 @@
+import type { PathKey } from "./evaluator/context.js";
+export type PathComponentType = "root" | "property" | "index" | "wildcard" | "slice" | "filter" | "recursive";
+export type PathComponent = {
+    type: PathComponentType;
+    value: string | number;
+};
+export declare function toPathArray(pathString: string): PathKey[];
+export declare function toPathString(pathArray: PathKey[]): string;
+export declare function toPointer(path: string | PathKey[]): string;
+export declare function fromPointer(pointer: string): string;
+export declare function fromPointerArray(pointer: string): PathKey[];
+export declare function isValidPath(path: string): boolean;
+export declare function normalize(path: string): string;
+export declare function parse(path: string): PathComponent[];
+export declare function stringify(components: PathComponent[]): string;
+export declare function build(segments: Array<string | number>): string;
+export declare function parent(path: string): string | null;
+export declare function append(basePath: string, ...segments: string[]): string;
+export declare function isPointer(value: string): boolean;
+export declare function equals(path1: string, path2: string): boolean;
+export declare function startsWith(path: string, prefix: string): boolean;
+export declare function contains(path: string, segment: string | number): boolean;

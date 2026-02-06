@@ -1,0 +1,17 @@
+# Source and tooling
+src/
+tests/
+scripts/
+tsconfig.json
+
+# TypeScript sources outside dist
+*.ts
+*.tsx
+
+# Maps and logs
+*.map
+*.log
+
+# Misc
+node_modules/
+.DS_Store

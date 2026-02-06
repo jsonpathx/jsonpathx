@@ -3,6 +3,7 @@ import type {
   FilterNode,
   ScriptNode,
   SelectorNode,
+  SliceSelector,
   UnionItemNode
 } from "../ast/nodes.js";
 import { ParseError } from "./errors.js";
@@ -241,7 +242,7 @@ function parseUnionItem(value: string): UnionItemNode {
   };
 }
 
-function parseSlice(value: string): SelectorNode {
+function parseSlice(value: string): SliceSelector {
   const parts = value.split(":");
   if (parts.length < 2 || parts.length > 3) {
     throw new ParseError("Invalid slice expression", 0);
