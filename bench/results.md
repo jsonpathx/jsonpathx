@@ -15,28 +15,28 @@ Node: v25.5.0
 
 | Query | Path | Eval | JsonPathX ops/sec | JSONPath Plus ops/sec | jsonpath ops/sec | Winner |
 | --- | --- | --- | --- | --- | --- | --- |
-| root | `$` | false | 8,698,025 | 2,601,408 | 1,005,291 | jsonpathx |
-| dot | `$.store.book[0].author` | false | 441,823 | 1,127,519 | 61,920 | jsonpath-plus |
-| bracket | `$['store']['book'][0]['author']` | false | 537,609 | 1,164,889 | 55,351 | jsonpath-plus |
-| wildcard | `$.store.*` | false | 412,202 | 1,416,373 | 148,486 | jsonpath-plus |
-| recursive | `$..author` | false | 98,687 | 340,321 | 110,271 | jsonpath-plus |
-| slice | `$.store.book[0:2]` | false | 325,960 | 816,342 | 90,344 | jsonpath-plus |
-| union | `$.store.book[0,2]` | false | 317,714 | 745,865 | 75,425 | jsonpath-plus |
-| filter | `$..book[?(@.price < 10)]` | native | 72,839 | 2,942 | 70,855 | tie (jsonpathx) |
-| script | `$..book[(@.length-1)]` | native | 129,273 | 2,935 | 45,612 | jsonpathx |
-| parent | `$..book[?(@.price > 10)]^` | native | 74,752 | 2,747 | unsupported | jsonpathx |
-| property | `$.store.*~` | false | 395,735 | 1,186,723 | unsupported | jsonpath-plus |
-| type-selector | `$..*@number()` | false | 67,088 | 172,668 | unsupported | jsonpath-plus |
+| root | `$` | false | 8,371,009 | 2,593,679 | 972,439 | jsonpathx |
+| dot | `$.store.book[0].author` | false | 492,312 | 1,115,426 | 60,400 | jsonpath-plus |
+| bracket | `$['store']['book'][0]['author']` | false | 388,084 | 1,010,620 | 54,778 | jsonpath-plus |
+| wildcard | `$.store.*` | false | 409,592 | 1,416,749 | 153,262 | jsonpath-plus |
+| recursive | `$..author` | false | 89,293 | 356,448 | 107,080 | jsonpath-plus |
+| slice | `$.store.book[0:2]` | false | 310,773 | 692,800 | 88,098 | jsonpath-plus |
+| union | `$.store.book[0,2]` | false | 312,435 | 744,220 | 74,955 | jsonpath-plus |
+| filter | `$..book[?(@.price < 10)]` | native | 71,378 | 2,845 | 71,657 | tie (jsonpath) |
+| script | `$..book[(@.length-1)]` | native | 123,782 | 2,887 | 43,709 | jsonpathx |
+| parent | `$..book[?(@.price > 10)]^` | native | 73,173 | 2,795 | unsupported | jsonpathx |
+| property | `$.store.*~` | false | 402,728 | 1,185,186 | unsupported | jsonpath-plus |
+| type-selector | `$..*@number()` | false | 67,678 | 166,403 | unsupported | jsonpath-plus |
 
 ### Cars (100MB)
 
 | Query | Path | Eval | JsonPathX ops/sec | JSONPath Plus ops/sec | jsonpath ops/sec | Winner |
 | --- | --- | --- | --- | --- | --- | --- |
-| root | `$` | false | 7,321,861 | 2,500,951 | 1,006,322 | jsonpathx |
-| cars-brand | `$.cars[*].brand.name` | false | 9 | 27 | 0 | jsonpath-plus |
-| cars-models | `$.cars[:25].model` | false | 30,479 | 88,036 | 92 | jsonpath-plus |
-| cars-union | `$.cars[0,1,2].manufacturer` | false | 200,091 | 453,824 | 196 | jsonpath-plus |
-| cars-recursive | `$..engineDisplacement` | false | 1 | 7 | 2 | jsonpath-plus |
-| cars-filter | `$.cars[?(@.fuelType == 'Petrol')].model` | native | 4 | 12 | 0 | jsonpath-plus |
-| cars-script | `$.cars[(@.length-1)].model` | native | 282,562 | 2,650 | 1,234 | jsonpathx |
-| cars-property | `$.cars[0].extraFeatures.*~` | false | 83,142 | 440,801 | unsupported | jsonpath-plus |
+| root | `$` | false | 7,491,360 | 2,507,819 | 996,492 | jsonpathx |
+| cars-brand | `$.cars[*].brand.name` | false | 9 | 30 | 0 | jsonpath-plus |
+| cars-models | `$.cars[:25].model` | false | 37,980 | 107,749 | 123 | jsonpath-plus |
+| cars-union | `$.cars[0,1,2].manufacturer` | false | 245,296 | 572,092 | 257 | jsonpath-plus |
+| cars-recursive | `$..engineDisplacement` | false | 1 | 9 | 2 | jsonpath-plus |
+| cars-filter | `$.cars[?(@.fuelType == 'Petrol')].model` | native | 7 | 19 | 0 | jsonpath-plus |
+| cars-script | `$.cars[(@.length-1)].model` | native | 340,809 | 3,571 | 1,521 | jsonpathx |
+| cars-property | `$.cars[0].extraFeatures.*~` | false | 105,300 | 543,070 | unsupported | jsonpath-plus |
