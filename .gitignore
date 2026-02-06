@@ -2,3 +2,4 @@ node_modules/
 apps/docs/.vitepress/dist/
 vendor/
 docs/
+.codex/
