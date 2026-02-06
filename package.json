@@ -11,9 +11,9 @@
     "build": "npm -w packages/jsonpathx run build",
     "test": "npm -ws test",
     "bench": "npm -w bench run bench",
-    "docs:dev": "npm -w apps/docs run dev",
-    "docs:preview": "npm -w apps/docs run preview",
-    "docs:build": "npm run bench && npm -w apps/docs run build"
+    "docs:dev": "npm --prefix apps/docs run dev",
+    "docs:preview": "npm --prefix apps/docs run preview",
+    "docs:build": "npm run bench && npm --prefix apps/docs run build"
   },
   "engines": {
     "node": ">=18.0.0",
