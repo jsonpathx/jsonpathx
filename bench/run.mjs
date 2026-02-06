@@ -1,9 +1,15 @@
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import jsonpath from "jsonpath";
+import { JSONPath as JSONPathPlus } from "jsonpath-plus";
+import { JSONPath as JSONPathX } from "../packages/jsonpathx/src/index.ts";
 
-const iterations = 50000;
-const sample = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, "..");
+const carsPath = path.join(__dirname, "cars.json");
+
+const smallFixture = {
   store: {
     book: [
       { category: "reference", author: "Nigel", price: 8.95 },
@@ -15,72 +21,195 @@ const sample = {
   }
 };
 
-function accessNested() {
-  return sample.store.book[2].author;
-}
+const carsJson = JSON.parse(await readFile(carsPath, "utf8"));
 
-function scanPrices() {
-  let total = 0;
-  for (const book of sample.store.book) {
-    total += book.price;
+const datasets = [
+  { name: "fixture", label: "Fixture (Goessner)", json: smallFixture, targetMs: 500 },
+  { name: "cars", label: "Cars (100MB)", json: carsJson, targetMs: 350 }
+];
+
+const queries = [
+  { name: "root", path: "$", datasets: ["fixture", "cars"] },
+  { name: "dot", path: "$.store.book[0].author", datasets: ["fixture"] },
+  { name: "bracket", path: "$['store']['book'][0]['author']", datasets: ["fixture"] },
+  { name: "wildcard", path: "$.store.*", datasets: ["fixture"] },
+  { name: "recursive", path: "$..author", datasets: ["fixture"] },
+  { name: "slice", path: "$.store.book[0:2]", datasets: ["fixture"] },
+  { name: "union", path: "$.store.book[0,2]", datasets: ["fixture"] },
+  { name: "filter", path: "$..book[?(@.price < 10)]", eval: true, datasets: ["fixture"] },
+  { name: "script", path: "$..book[(@.length-1)]", eval: true, datasets: ["fixture"] },
+  { name: "parent", path: "$..book[?(@.price > 10)]^", eval: true, datasets: ["fixture"] },
+  { name: "property", path: "$.store.*~", datasets: ["fixture"] },
+  { name: "type-selector", path: "$..*@number()", datasets: ["fixture"] },
+  { name: "cars-brand", path: "$.cars[*].brand.name", datasets: ["cars"] },
+  { name: "cars-models", path: "$.cars[:25].model", datasets: ["cars"] },
+  { name: "cars-union", path: "$.cars[0,1,2].manufacturer", datasets: ["cars"] },
+  { name: "cars-recursive", path: "$..engineDisplacement", datasets: ["cars"] },
+  { name: "cars-filter", path: "$.cars[?(@.fuelType == 'Petrol')].model", eval: true, datasets: ["cars"] },
+  { name: "cars-script", path: "$.cars[(@.length-1)].model", eval: true, datasets: ["cars"] },
+  { name: "cars-property", path: "$.cars[0].extraFeatures.*~", datasets: ["cars"] }
+];
+
+const engines = [
+  {
+    name: "jsonpathx",
+    fn: (options) => JSONPathX(options)
+  },
+  {
+    name: "jsonpath-plus",
+    fn: (options) => JSONPathPlus(options)
+  },
+  {
+    name: "jsonpath",
+    fn: (options) => jsonpath.query(options.json, options.path)
   }
-  return total;
-}
-
-function stringifyStore() {
-  return JSON.stringify(sample.store);
-}
-
-const benchmarks = [
-  { name: "nested access", fn: accessNested },
-  { name: "scan prices", fn: scanPrices },
-  { name: "stringify store", fn: stringifyStore }
 ];
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(value);
 }
 
-function runBench(fn) {
+function runTimed(fn, targetMs) {
   const start = process.hrtime.bigint();
-  for (let i = 0; i < iterations; i += 1) {
+  let iterations = 0;
+  let elapsedMs = 0;
+  while (elapsedMs < targetMs || iterations < 5) {
     fn();
+    iterations += 1;
+    elapsedMs = Number(process.hrtime.bigint() - start) / 1e6;
   }
-  const durationNs = Number(process.hrtime.bigint() - start);
-  const seconds = durationNs / 1e9;
-  return iterations / seconds;
+  const seconds = elapsedMs / 1000;
+  return { iterations, seconds, ops: iterations / seconds };
 }
 
-const results = benchmarks.map((bench) => {
-  const ops = runBench(bench.fn);
-  return { name: bench.name, ops };
-});
+function safeRun(fn, targetMs) {
+  try {
+    return { ...runTimed(fn, targetMs), error: null };
+  } catch (error) {
+    return {
+      iterations: 0,
+      seconds: 0,
+      ops: Number.NaN,
+      error: error instanceof Error ? error.message : String(error)
+    };
+  }
+}
+
+function winnerLabel(entries) {
+  const valid = entries.filter((entry) => Number.isFinite(entry.ops));
+  if (valid.length === 0) {
+    return "unsupported";
+  }
+  valid.sort((a, b) => b.ops - a.ops);
+  const [top, second] = valid;
+  if (second && Math.abs(top.ops - second.ops) / top.ops < 0.05) {
+    return `tie (${top.engine})`;
+  }
+  return top.engine;
+}
+
+const results = [];
+
+for (const dataset of datasets) {
+  for (const query of queries) {
+    if (!query.datasets.includes(dataset.name)) {
+      continue;
+    }
+    for (const engine of engines) {
+      const options = {
+        path: query.path,
+        json: dataset.json,
+        resultType: "value",
+        wrap: true,
+        eval: query.eval ? "native" : false
+      };
+      const runner = () => engine.fn(options);
+      const outcome = safeRun(runner, dataset.targetMs);
+      results.push({
+        dataset: dataset.name,
+        query: query.name,
+        path: query.path,
+        engine: engine.name,
+        eval: query.eval ? "native" : "false",
+        iterations: outcome.iterations,
+        seconds: Number(outcome.seconds.toFixed(4)),
+        ops: Number.isFinite(outcome.ops) ? Number(outcome.ops.toFixed(2)) : Number.NaN,
+        error: outcome.error
+      });
+    }
+  }
+}
 
 const generated = new Date().toISOString().slice(0, 10);
+const jsonOutput = {
+  generated,
+  node: process.version,
+  datasets: datasets.map((dataset) => ({ name: dataset.name, targetMs: dataset.targetMs })),
+  results
+};
+
+const grouped = new Map();
+for (const entry of results) {
+  const key = `${entry.dataset}:${entry.query}`;
+  if (!grouped.has(key)) {
+    grouped.set(key, []);
+  }
+  grouped.get(key).push(entry);
+}
+
 const lines = [
   "# Benchmarks",
   "",
   `Generated: ${generated}`,
   `Node: ${process.version}`,
-  `Iterations: ${iterations}`,
   "",
-  "| Benchmark | Ops/sec |",
-  "| --- | --- |",
-  ...results.map((result) => `| ${result.name} | ${formatNumber(result.ops)} |`),
+  "## Summary",
+  "- Each query is time-boxed per dataset (see targetMs in results.json).",
+  "- Eval is disabled unless required by a query.",
+  "- Cars dataset is loaded from bench/cars.json (~100MB).",
+  "- Some queries are unsupported by certain engines and marked as such.",
   "",
-  "Notes:",
-  "- These are baseline JavaScript operations used for regression tracking.",
-  "- Replace or expand once JsonPathX benchmarks are available."
+  "## Results"
 ];
 
-const output = `${lines.join("\n")}\n`;
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "..");
-const benchPath = path.join(root, "bench", "results.md");
-const docsPath = path.join(root, "apps", "docs", "bench.md");
+for (const dataset of datasets) {
+  lines.push("", `### ${dataset.label}`);
+  lines.push(
+    "",
+    "| Query | Path | Eval | JsonPathX ops/sec | JSONPath Plus ops/sec | jsonpath ops/sec | Winner |",
+    "| --- | --- | --- | --- | --- | --- | --- |"
+  );
 
-await writeFile(benchPath, output, "utf8");
-await writeFile(docsPath, output, "utf8");
+  const datasetQueries = queries.filter((query) => query.datasets.includes(dataset.name));
+  for (const query of datasetQueries) {
+    const key = `${dataset.name}:${query.name}`;
+    const entries = grouped.get(key) ?? [];
+    const xEntry = entries.find((entry) => entry.engine === "jsonpathx");
+    const plusEntry = entries.find((entry) => entry.engine === "jsonpath-plus");
+    const jsonpathEntry = entries.find((entry) => entry.engine === "jsonpath");
 
-console.log(`Wrote ${benchPath}`);
-console.log(`Wrote ${docsPath}`);
+    const xOps = xEntry && Number.isFinite(xEntry.ops) ? formatNumber(xEntry.ops) : "unsupported";
+    const plusOps = plusEntry && Number.isFinite(plusEntry.ops) ? formatNumber(plusEntry.ops) : "unsupported";
+    const jsonpathOps =
+      jsonpathEntry && Number.isFinite(jsonpathEntry.ops) ? formatNumber(jsonpathEntry.ops) : "unsupported";
+
+    const winner = winnerLabel(entries);
+
+    lines.push(
+      `| ${query.name} | \`${query.path}\` | ${query.eval ? "native" : "false"} | ${xOps} | ${plusOps} | ${jsonpathOps} | ${winner} |`
+    );
+  }
+}
+
+const markdown = `${lines.join("\n")}\n`;
+const benchMd = path.join(root, "bench", "results.md");
+const benchJson = path.join(root, "bench", "results.json");
+const docsJson = path.join(root, "apps", "docs", "bench.json");
+
+await writeFile(benchMd, markdown, "utf8");
+await writeFile(benchJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
+await writeFile(docsJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
+
+console.log(`Wrote ${benchMd}`);
+console.log(`Wrote ${benchJson}`);
+console.log(`Wrote ${docsJson}`);

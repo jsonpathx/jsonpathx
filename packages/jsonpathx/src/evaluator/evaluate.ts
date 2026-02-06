@@ -9,17 +9,21 @@ import type {
   SegmentNode,
   TypeSelectorNode
 } from "../ast/nodes.js";
-import { createRootContext, type EvalContext } from "./context.js";
+import { createRootContext, type EvalContext, type PathKey } from "./context.js";
 import { collectDescendants } from "./recursive.js";
 import { applySelector } from "./selectors.js";
 import { matchesTypeSelector } from "./types.js";
 import { evaluateExpression, type EvalPolicy } from "../eval/index.js";
 
-export type EvalOptions = EvalPolicy;
+export type EvalOptions = EvalPolicy & {
+  parent?: unknown;
+  parentProperty?: PathKey;
+  filterMode?: "jsonpath" | "xpath";
+};
 
 export function evaluatePath(ast: PathNode, json: unknown, options: EvalOptions = {}): EvalContext[] {
   const root = json;
-  let contexts: EvalContext[] = [createRootContext(json)];
+  let contexts: EvalContext[] = [createRootContext(json, options.parent, options.parentProperty)];
   for (const segment of ast.segments) {
     contexts = applySegment(segment, contexts, options, root);
     if (contexts.length === 0) {
@@ -74,8 +78,31 @@ function applyFilter(
   root: unknown
 ): EvalContext[] {
   return contexts.flatMap((context) => {
+    if (options.filterMode === "xpath") {
+      try {
+        return evaluateExpression(segment.expression, context, root, options) ? [context] : [];
+      } catch (error) {
+        if (options.ignoreEvalErrors) {
+          return [];
+        }
+        throw error;
+      }
+    }
     const targets = expandFilterTargets(context);
-    return targets.filter((target) => evaluateExpression(segment.expression, target, root, options));
+    const matches: EvalContext[] = [];
+    for (const target of targets) {
+      try {
+        if (evaluateExpression(segment.expression, target, root, options)) {
+          matches.push(target);
+        }
+      } catch (error) {
+        if (options.ignoreEvalErrors) {
+          continue;
+        }
+        throw error;
+      }
+    }
+    return matches;
   });
 }
 
@@ -86,7 +113,15 @@ function applyScript(
   root: unknown
 ): EvalContext[] {
   return contexts.flatMap((context) => {
-    const result = evaluateExpression(segment.expression, context, root, options);
+    let result: unknown;
+    try {
+      result = evaluateExpression(segment.expression, context, root, options);
+    } catch (error) {
+      if (options.ignoreEvalErrors) {
+        return [];
+      }
+      throw error;
+    }
     if (typeof result === "number") {
       return applySelector(context, { type: "IndexSelector", index: result });
     }
@@ -121,7 +156,8 @@ function applyPropertyName(contexts: EvalContext[]): EvalContext[] {
           value: String(context.parentProperty),
           path: context.path,
           parent: context.parent,
-          parentProperty: context.parentProperty
+          parentProperty: context.parentProperty,
+          payloadType: "property"
         }
       ];
     }
@@ -130,7 +166,13 @@ function applyPropertyName(contexts: EvalContext[]): EvalContext[] {
       return [];
     }
     const keys = Object.keys(value as Record<string, unknown>);
-    return keys.map((key) => ({ value: key, path: context.path.concat(key), parent: context.value, parentProperty: key }));
+    return keys.map((key) => ({
+      value: key,
+      path: context.path.concat(key),
+      parent: context.value,
+      parentProperty: key,
+      payloadType: "property"
+    }));
   });
 }
 

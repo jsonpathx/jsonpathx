@@ -3,7 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bench": "node run.mjs",
+    "bench": "node --import tsx run.mjs",
     "test": "node -e \"console.log('bench ok')\""
+  },
+  "dependencies": {
+    "jsonpath-plus": "^10.0.0",
+    "jsonpath": "^1.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1"
   }
 }

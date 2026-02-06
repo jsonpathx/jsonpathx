@@ -7,7 +7,10 @@ export type ResultPayload = {
   pointer: string;
   parent: unknown;
   parentProperty: string | number | undefined;
+  parentChain?: { property: string | number; parent: unknown }[];
 };
+
+export type AllTypesResult = ResultPayload[];
 
 export function buildPayload(context: EvalContext): ResultPayload {
   return {
@@ -15,6 +18,7 @@ export function buildPayload(context: EvalContext): ResultPayload {
     path: toPathString(context.path),
     pointer: toPointer(context.path),
     parent: context.parent,
-    parentProperty: context.parentProperty
+    parentProperty: context.parentProperty,
+    parentChain: context.parentChain
   };
 }

@@ -2,15 +2,50 @@
   "name": "jsonpathx",
   "version": "0.0.0",
   "private": false,
+  "description": "Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "node --test --import tsx tests/**/*.test.ts"
+    "test": "node --test --import tsx tests/**/*.test.ts",
+    "size": "node scripts/size.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsonpathx/jsonpathx.git"
+  },
+  "keywords": [
+    "jsonpath",
+    "json",
+    "query",
+    "typescript",
+    "rfc9535",
+    "jsonpath-plus",
+    "json-query",
+    "json-selector",
+    "json-path",
+    "json-pointer",
+    "performance"
+  ],
+  "author": "Afzal Ahmad",
+  "license": "MIT",
+  "homepage": "https://github.com/jsonpathx/jsonpathx#readme",
+  "bugs": {
+    "url": "https://github.com/jsonpathx/jsonpathx/issues"
   },
   "devDependencies": {
-    "jsonpath-plus": "^10.0.0",
+    "esbuild": "^0.21.5",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"
   }

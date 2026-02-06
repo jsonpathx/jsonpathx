@@ -46,3 +46,13 @@ test("safe eval rejects unknown identifiers", () => {
     { message: /unsafe identifier/i }
   );
 });
+
+test("ignoreEvalErrors treats failures as false", () => {
+  const result = JSONPath({
+    path: "$..book[?(@.price < missingVar)].author",
+    json: fixture,
+    eval: "native",
+    ignoreEvalErrors: true
+  });
+  assert.deepStrictEqual(result, []);
+});

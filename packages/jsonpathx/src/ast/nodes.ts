@@ -1,6 +1,13 @@
-export type PathNode = {
+export type PathNode = PathRootNode | UnionPathNode;
+
+export type PathRootNode = {
   type: "Path";
   segments: SegmentNode[];
+};
+
+export type UnionPathNode = {
+  type: "UnionPath";
+  paths: PathRootNode[];
 };
 
 export type SegmentNode =

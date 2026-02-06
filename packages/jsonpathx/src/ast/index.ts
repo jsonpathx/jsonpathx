@@ -1,5 +1,7 @@
 export type {
   PathNode,
+  PathRootNode,
+  UnionPathNode,
   SegmentNode,
   RootNode,
   CurrentNode,

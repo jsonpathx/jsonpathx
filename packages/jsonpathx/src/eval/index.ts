@@ -6,6 +6,7 @@ export type EvalPolicy = {
   eval?: EvalMode;
   preventEval?: boolean;
   sandbox?: Record<string, unknown>;
+  ignoreEvalErrors?: boolean;
 };
 
 const allowedKeywords = new Set([

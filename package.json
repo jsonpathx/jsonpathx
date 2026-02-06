@@ -1,6 +1,7 @@
 {
   "name": "jsonpathx",
   "private": true,
+  "description": "Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility.",
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -13,5 +14,32 @@
     "docs:dev": "npm -w docs run dev",
     "docs:preview": "npm -w docs run preview",
     "docs:build": "npm run bench && npm -w docs run build"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsonpathx/jsonpathx.git"
+  },
+  "keywords": [
+    "jsonpath",
+    "json",
+    "query",
+    "typescript",
+    "rfc9535",
+    "jsonpath-plus",
+    "json-query",
+    "json-selector",
+    "json-path",
+    "json-pointer",
+    "performance"
+  ],
+  "author": "Afzal Ahmad",
+  "license": "MIT",
+  "homepage": "https://github.com/jsonpathx/jsonpathx#readme",
+  "bugs": {
+    "url": "https://github.com/jsonpathx/jsonpathx/issues"
   }
 }

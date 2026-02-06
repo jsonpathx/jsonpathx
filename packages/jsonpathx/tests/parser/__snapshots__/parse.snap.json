@@ -404,6 +404,191 @@
           { "type": "Filter", "expression": "@.price > 10 && @.price < 20" }
         ]
       }
+    },
+    {
+      "name": "union-operator",
+      "path": "$.store.book[0].author | $.store.book[1].author",
+      "ast": {
+        "type": "UnionPath",
+        "paths": [
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "store",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "book",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IndexSelector",
+                  "index": 0
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "author",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          },
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "store",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "book",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IndexSelector",
+                  "index": 1
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "author",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "grouping-selector",
+      "path": "$.store.(book,bicycle)",
+      "ast": {
+        "type": "UnionPath",
+        "paths": [
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "store",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "book",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          },
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "store",
+                  "quoted": false,
+                  "escaped": false
+                }
+              },
+              {
+                "type": "Child",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "bicycle",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "grouping-recursive",
+      "path": "$..(author,price)",
+      "ast": {
+        "type": "UnionPath",
+        "paths": [
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Recursive",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "author",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          },
+          {
+            "type": "Path",
+            "segments": [
+              { "type": "Root" },
+              {
+                "type": "Recursive",
+                "selector": {
+                  "type": "IdentifierSelector",
+                  "name": "price",
+                  "quoted": false,
+                  "escaped": false
+                }
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

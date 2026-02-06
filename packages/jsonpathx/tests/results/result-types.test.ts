@@ -24,7 +24,8 @@ const expectedAll = {
   path: expectedPath,
   pointer: expectedPointer,
   parent: expectedParent,
-  parentProperty: "author"
+  parentProperty: "author",
+  parentChain: undefined
 };
 
 test("resultType value", () => {
@@ -57,7 +58,24 @@ test("resultType all", () => {
   assert.deepStrictEqual(result, [expectedAll]);
 });
 
+test("resultType parentChain", () => {
+  const result = JSONPath({ path, json: fixture, resultType: "parentChain" }) as Array<
+    Array<{ property: string | number; parent: unknown }>
+  >;
+  assert.deepStrictEqual(result[0], [
+    { property: "store", parent: fixture },
+    { property: "book", parent: fixture.store },
+    { property: 1, parent: fixture.store.book },
+    { property: "author", parent: fixture.store.book[1] }
+  ]);
+});
+
 test("wrap false uses scalar", () => {
   const result = JSONPath({ path, json: fixture, resultType: "value", wrap: false });
   assert.strictEqual(result, "Evelyn");
+});
+
+test("flatten flattens arrays", () => {
+  const result = JSONPath({ path: "$.store.book", json: fixture, flatten: true });
+  assert.deepStrictEqual(result, fixture.store.book);
 });

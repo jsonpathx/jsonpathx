@@ -1,6 +1,7 @@
 import type {
   ChildNode,
   PathNode,
+  PathRootNode,
   RecursiveNode,
   SegmentNode,
   SelectorNode,
@@ -9,8 +10,18 @@ import type {
 import { parseBracketExpression } from "./brackets.js";
 import { ParseError } from "./errors.js";
 import { isIdentifierStart, readIdentifier } from "./tokenizer.js";
+import { normalizePath } from "./normalize.js";
 
 export function parsePath(source: string): PathNode {
+  const parts = normalizePath(source);
+  if (parts.length > 1) {
+    const paths = parts.map((part) => parseSinglePath(part));
+    return { type: "UnionPath", paths };
+  }
+  return parseSinglePath(parts[0] ?? source);
+}
+
+function parseSinglePath(source: string): PathRootNode {
   const segments: SegmentNode[] = [];
   let index = 0;
   while (index < source.length) {
