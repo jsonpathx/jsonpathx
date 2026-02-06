@@ -41,5 +41,6 @@
   "homepage": "https://github.com/jsonpathx/jsonpathx#readme",
   "bugs": {
     "url": "https://github.com/jsonpathx/jsonpathx/issues"
-  }
+  },
+  "version": "0.1.0"
 }
