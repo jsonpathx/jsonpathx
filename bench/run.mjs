@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import jsonpath from "jsonpath";
@@ -207,10 +207,12 @@ for (const dataset of datasets) {
 const markdown = `${lines.join("\n")}\n`;
 const benchMd = path.join(root, "bench", "results.md");
 const benchJson = path.join(root, "bench", "results.json");
-const docsJson = path.join(root, "apps", "docs", "bench.json");
+const docsDir = path.join(root, "apps", "docs");
+const docsJson = path.join(docsDir, "bench.json");
 
 await writeFile(benchMd, markdown, "utf8");
 await writeFile(benchJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
+await mkdir(docsDir, { recursive: true });
 await writeFile(docsJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
 
 console.log(`Wrote ${benchMd}`);
