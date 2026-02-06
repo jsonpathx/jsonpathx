@@ -1,0 +1,9 @@
+{
+  "name": "bench",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "node run.mjs",
+    "test": "node -e \"console.log('bench ok')\""
+  }
+}

@@ -1,0 +1,1 @@
+Open docs/spec/init.md and docs/spec/run-skill.md. Then Run skill: Compatibility Matrix.

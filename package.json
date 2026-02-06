@@ -1,0 +1,15 @@
+{
+  "name": "jsonpathx",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "bench"
+  ],
+  "scripts": {
+    "test": "npm -ws test",
+    "bench": "npm -w bench run bench",
+    "docs:dev": "npm -w docs run dev",
+    "docs:preview": "npm -w docs run preview",
+    "docs:build": "npm run bench && npm -w docs run build"
+  }
+}

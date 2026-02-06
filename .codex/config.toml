@@ -1,0 +1,14 @@
+approval_policy = "on-request"
+
+[mcp_servers.fs]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+[mcp_servers.shell]
+command = "npx"
+args = ["-y", "mcp-shell"]
+env = { npm_config_loglevel = "silent", NO_COLOR = "1" }
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp" ]
