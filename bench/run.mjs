@@ -21,11 +21,13 @@ const smallFixture = {
   }
 };
 
-const carsJson = JSON.parse(await readFile(carsPath, "utf8"));
+const carsRaw = await readFile(carsPath, "utf8");
+const isLfsPointer = carsRaw.startsWith("version https://git-lfs.github.com/spec/v1");
+const carsJson = isLfsPointer ? null : JSON.parse(carsRaw);
 
 const datasets = [
   { name: "fixture", label: "Fixture (Goessner)", json: smallFixture, targetMs: 500 },
-  { name: "cars", label: "Cars (100MB)", json: carsJson, targetMs: 350 }
+  ...(carsJson ? [{ name: "cars", label: "Cars (100MB)", json: carsJson, targetMs: 350 }] : [])
 ];
 
 const queries = [
@@ -166,7 +168,8 @@ const lines = [
   "## Summary",
   "- Each query is time-boxed per dataset (see targetMs in results.json).",
   "- Eval is disabled unless required by a query.",
-  "- Cars dataset is loaded from bench/cars.json (~100MB).",
+  `- Cars dataset is loaded from bench/cars.json (~100MB)${carsJson ? "." : " when Git LFS data is available."}`,
+  ...(carsJson ? [] : ["- Cars dataset skipped (Git LFS pointer file detected)."]),
   "- Some queries are unsupported by certain engines and marked as such.",
   "",
   "## Results"
