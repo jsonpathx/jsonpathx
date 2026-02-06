@@ -1,5 +1,6 @@
 node_modules/
 apps/docs/.vitepress/dist/
-vendor/
-docs/
+/vendor/
+/docs/
+/apps/docs/bench.json
 .codex/

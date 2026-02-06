@@ -1,0 +1,13 @@
+{
+  "name": "docs",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "test": "node -e \"console.log('docs ok')\""
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.0"
+  }
+}
