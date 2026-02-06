@@ -2,6 +2,7 @@
 
 > Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility
 
+[![Docs](https://img.shields.io/badge/docs-jsonpathx-blue)](https://jsonpathx.github.io/jsonpathx/)
 [![CI](https://github.com/jsonpathx/jsonpathx/actions/workflows/pages.yml/badge.svg)](https://github.com/jsonpathx/jsonpathx/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
