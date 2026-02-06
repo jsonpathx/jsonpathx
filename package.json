@@ -3,9 +3,11 @@
   "private": true,
   "workspaces": [
     "apps/*",
+    "packages/*",
     "bench"
   ],
   "scripts": {
+    "build": "npm -w packages/jsonpathx run build",
     "test": "npm -ws test",
     "bench": "npm -w bench run bench",
     "docs:dev": "npm -w docs run dev",

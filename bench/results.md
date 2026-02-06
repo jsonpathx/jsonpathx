@@ -6,9 +6,9 @@ Iterations: 50000
 
 | Benchmark | Ops/sec |
 | --- | --- |
-| nested access | 82,724,344 |
-| scan prices | 13,250,885 |
-| stringify store | 1,849,457 |
+| nested access | 102,284,420 |
+| scan prices | 17,768,567 |
+| stringify store | 2,059,994 |
 
 Notes:
 - These are baseline JavaScript operations used for regression tracking.

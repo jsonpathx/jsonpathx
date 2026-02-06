@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "name": "last-book",
+      "reason": "Script expressions require eval: set eval: 'native' or 'safe'."
+    },
+    {
+      "name": "isbn-books",
+      "reason": "Filter expressions require eval: set eval: 'native' or 'safe'."
+    },
+    {
+      "name": "cheap-books",
+      "reason": "Filter expressions require eval: set eval: 'native' or 'safe'."
+    },
+    {
+      "name": "parent-of-expensive",
+      "reason": "Filter expressions require eval: set eval: 'native' or 'safe'."
+    }
+  ]
+}

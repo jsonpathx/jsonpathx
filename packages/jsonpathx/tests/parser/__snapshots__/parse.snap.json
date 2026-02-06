@@ -1,0 +1,409 @@
+{
+  "cases": [
+    {
+      "name": "root-only",
+      "path": "$",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" }
+        ]
+      }
+    },
+    {
+      "name": "dot-and-index",
+      "path": "$.store.book[0].title",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "store",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IndexSelector",
+              "index": 0
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "title",
+              "quoted": false,
+              "escaped": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "bracket-quoted",
+      "path": "$['store']['book'][0]['title']",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "store",
+              "quoted": true,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": true,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IndexSelector",
+              "index": 0
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "title",
+              "quoted": true,
+              "escaped": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "wildcard",
+      "path": "$.store.*",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "store",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": { "type": "WildcardSelector" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "recursive-author",
+      "path": "$..author",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "author",
+              "quoted": false,
+              "escaped": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "recursive-wildcard",
+      "path": "$..*",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          { "type": "Recursive", "selector": { "type": "WildcardSelector" } }
+        ]
+      }
+    },
+    {
+      "name": "filter",
+      "path": "$..book[?(@.price < 10)].title",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          { "type": "Filter", "expression": "@.price < 10" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "title",
+              "quoted": false,
+              "escaped": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "script-expression",
+      "path": "$..book[(@.length-1)]",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          { "type": "Script", "expression": "@.length-1" }
+        ]
+      }
+    },
+    {
+      "name": "slice",
+      "path": "$..book[-1:]",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "SliceSelector",
+              "start": -1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "union-indices",
+      "path": "$..book[0,1]",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "UnionSelector",
+              "items": [
+                { "type": "IndexSelector", "index": 0 },
+                { "type": "IndexSelector", "index": 1 }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "union-mixed",
+      "path": "$..book[0,1,'title']",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "UnionSelector",
+              "items": [
+                { "type": "IndexSelector", "index": 0 },
+                { "type": "IndexSelector", "index": 1 },
+                {
+                  "type": "IdentifierSelector",
+                  "name": "title",
+                  "quoted": true,
+                  "escaped": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "parent-selector",
+      "path": "$..book[?(@.isbn)]^",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          { "type": "Filter", "expression": "@.isbn" },
+          { "type": "Parent" }
+        ]
+      }
+    },
+    {
+      "name": "property-selector",
+      "path": "$.store.*~",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "store",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          {
+            "type": "Child",
+            "selector": { "type": "WildcardSelector" }
+          },
+          { "type": "PropertyName" }
+        ]
+      }
+    },
+    {
+      "name": "type-selector",
+      "path": "$..book..*@number()",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Recursive",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "book",
+              "quoted": false,
+              "escaped": false
+            }
+          },
+          { "type": "Recursive", "selector": { "type": "WildcardSelector" } },
+          { "type": "TypeSelector", "name": "number" }
+        ]
+      }
+    },
+    {
+      "name": "escaped-name",
+      "path": "$.`$",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "$",
+              "quoted": false,
+              "escaped": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "quoted-commas",
+      "path": "$['weird,key']",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          {
+            "type": "Child",
+            "selector": {
+              "type": "IdentifierSelector",
+              "name": "weird,key",
+              "quoted": true,
+              "escaped": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "filter-whitespace",
+      "path": "$[?( @.price > 10 && @.price < 20 )]",
+      "ast": {
+        "type": "Path",
+        "segments": [
+          { "type": "Root" },
+          { "type": "Filter", "expression": "@.price > 10 && @.price < 20" }
+        ]
+      }
+    }
+  ]
+}
