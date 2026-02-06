@@ -39,7 +39,7 @@ The Mutation API provides methods to modify JSON data based on JSONPath queries.
 ### Basic Usage
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 const data = {
   users: [
@@ -641,7 +641,7 @@ await Mutation.push(
 Combine mutations with QueryBuilder for complex workflows:
 
 ```typescript
-import { JSONPath, Mutation } from 'jsonpathx';
+import { JSONPath, Mutation } from '@jsonpathx/jsonpathx';
 
 // Get IDs of inactive users
 const inactiveIds = await JSONPath.create(data)

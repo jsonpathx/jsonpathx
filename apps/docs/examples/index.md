@@ -7,7 +7,7 @@ Practical examples showing how to use jsonpathx in real-world scenarios.
 ### Simple Property Access
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const user = {
   name: 'John Doe',

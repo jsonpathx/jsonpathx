@@ -22,7 +22,7 @@ The motivation is driven by jsonpath and jsonpath-plus. Both libraries are no lo
 ## Installation 📦
 
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Quick Start 🚀
@@ -30,7 +30,7 @@ npm install jsonpathx
 ### Basic Usage ✨
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   store: {
@@ -56,7 +56,7 @@ const paths = await JSONPath.paths('$.store.book[*].title', data);
 ### Fluent Builder API 🧩
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.create(data)
   .query('$.store.book[*]')

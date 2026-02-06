@@ -7,7 +7,7 @@ This tutorial will guide you through the basics of using jsonpathx. By the end, 
 Let's start with a simple example:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   name: 'John Doe',
@@ -152,7 +152,7 @@ console.log(salaries); // [100000, 120000, 80000]
 For complex queries, use the QueryBuilder:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   products: [
@@ -273,7 +273,7 @@ const result = await JSONPath.query('$.items[*]', data, {
 jsonpathx includes utilities for working with paths:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Convert path string to array
 const array = JSONPath.toPathArray('$.store.book[0].title');

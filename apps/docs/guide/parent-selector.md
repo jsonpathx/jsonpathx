@@ -49,7 +49,7 @@ interface AllTypesResult {
 ### Build Complete Parent Chain
 
 ```typescript
-import { buildParentChain } from 'jsonpathx';
+import { buildParentChain } from '@jsonpathx/jsonpathx';
 
 const data = {
   level1: {
@@ -80,7 +80,7 @@ console.log(chain);
 ### Navigate Up Parent Chain
 
 ```typescript
-import { navigateUp } from 'jsonpathx';
+import { navigateUp } from '@jsonpathx/jsonpathx';
 
 // Get parent at specific level
 const immediateParent = navigateUp(chain, 1);  // Direct parent
@@ -278,7 +278,7 @@ items.values.forEach((item, index) => {
 ### Deep Parent Access
 
 ```typescript
-import { ParentChainTracker } from 'jsonpathx';
+import { ParentChainTracker } from '@jsonpathx/jsonpathx';
 
 const tracker = new ParentChainTracker();
 

@@ -9,7 +9,7 @@
     "test": "node -e \"console.log('playground ok')\""
   },
   "dependencies": {
-    "jsonpathx": "file:../../packages/jsonpathx"
+    "@jsonpathx/jsonpathx": "file:../../packages/jsonpathx"
   },
   "devDependencies": {
     "typescript": "^5.4.5",

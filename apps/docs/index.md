@@ -46,7 +46,7 @@ features:
 ## Quick Example
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   store: {
@@ -78,7 +78,7 @@ const result = await JSONPath.create(data)
 ## Installation
 
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Why jsonpathx?

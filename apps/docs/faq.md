@@ -141,7 +141,7 @@ See [Advanced Patterns](./guide/advanced-patterns.md) for more.
 Yes! jsonpathx includes a powerful mutation API:
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 // Set values
 await Mutation.set(data, '$.user.name', 'Alice');
@@ -175,7 +175,7 @@ See [Custom Functions Guide](./guide/custom-functions.md).
 Yes, for processing large arrays without loading everything into memory:
 
 ```typescript
-import { streamArray } from 'jsonpathx';
+import { streamArray } from '@jsonpathx/jsonpathx';
 
 for await (const item of streamArray(data, '$.items[*]')) {
   await processItem(item);
@@ -206,7 +206,7 @@ See [QueryBuilder API](./api/query-builder.md).
 Yes. The main package is compatible:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Same API, just add await
 const result = await JSONPath({ path: '$.items[*]', json: data });

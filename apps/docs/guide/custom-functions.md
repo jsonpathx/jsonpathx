@@ -25,7 +25,7 @@ Custom functions allow you to extend JSONPath filter expressions with JavaScript
 ### Basic Example
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   products: [
@@ -637,7 +637,7 @@ try {
 Define types for your sandbox functions:
 
 ```typescript
-import type { Sandbox } from 'jsonpathx';
+import type { Sandbox } from '@jsonpathx/jsonpathx';
 
 interface Product {
   id: string;

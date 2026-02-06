@@ -24,7 +24,7 @@ interface CacheOptions {
 **Example**:
 
 ```typescript
-import { QueryCache } from 'jsonpathx';
+import { QueryCache } from '@jsonpathx/jsonpathx';
 
 const cache = new QueryCache({
   maxSize: 200,
@@ -202,7 +202,7 @@ Get the global cache instance used by JSONPath.
 **Example**:
 
 ```typescript
-import { getGlobalCache } from 'jsonpathx';
+import { getGlobalCache } from '@jsonpathx/jsonpathx';
 
 const cache = getGlobalCache();
 const stats = cache.getStats();
@@ -218,7 +218,7 @@ Reset global cache to default configuration.
 **Example**:
 
 ```typescript
-import { resetGlobalCache } from 'jsonpathx';
+import { resetGlobalCache } from '@jsonpathx/jsonpathx';
 
 resetGlobalCache();
 // Global cache now has default settings (maxSize: 100, ttl: 60000)
@@ -231,7 +231,7 @@ resetGlobalCache();
 ### Enable Cache
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable with defaults
 JSONPath.enableCache();

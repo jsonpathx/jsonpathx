@@ -5,7 +5,7 @@ Practical examples of jsonpathx in production scenarios. Learn from real-world a
 ## E-commerce Product Search
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 interface Product {
   id: string;
@@ -113,7 +113,7 @@ async function aggregatePaginatedData(responses: any[]) {
 
 ```typescript
 // Merge multiple configuration sources
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 async function mergeConfigurations(
   defaultConfig: any,

@@ -18,7 +18,7 @@ Practical examples of JSON mutations using jsonpathx. Learn how to set, update, 
 ### Example 1: Setting Values
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 const data = {
   users: [
@@ -539,7 +539,7 @@ console.log(result.data);
 ### Example 19: Error Handling
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 const data = {
   items: [

@@ -7,19 +7,19 @@ Install jsonpathx using your preferred package manager:
 ::: code-group
 
 ```bash [npm]
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ```bash [yarn]
-yarn add jsonpathx
+yarn add @jsonpathx/jsonpathx
 ```
 
 ```bash [pnpm]
-pnpm add jsonpathx
+pnpm add @jsonpathx/jsonpathx
 ```
 
 ```bash [bun]
-bun add jsonpathx
+bun add @jsonpathx/jsonpathx
 ```
 
 :::
@@ -36,15 +36,15 @@ jsonpathx supports both ESM and CommonJS:
 ::: code-group
 
 ```typescript [ESM]
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 // or
-import JSONPath from 'jsonpathx';
+import JSONPath from '@jsonpathx/jsonpathx';
 ```
 
 ```typescript [CommonJS]
-const { JSONPath } = require('jsonpathx');
+const { JSONPath } = require('@jsonpathx/jsonpathx');
 // or
-const JSONPath = require('jsonpathx').default;
+const JSONPath = require('@jsonpathx/jsonpathx').default;
 ```
 
 :::
@@ -73,7 +73,7 @@ jsonpathx works in modern browsers:
 ```html
 <!-- Via CDN (ESM) -->
 <script type="module">
-  import { JSONPath } from 'https://esm.sh/jsonpathx';
+  import { JSONPath } from 'https://esm.sh/@jsonpathx/jsonpathx';
 
   const data = { items: [1, 2, 3] };
   const result = await JSONPath.query('$.items[*]', data);
@@ -98,7 +98,7 @@ No special bundler configuration is required for the JS engine.
 Initialization is a no-op for the JS engine. You can call it for API compatibility if you want:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 await JSONPath.init();
 ```
 
@@ -108,7 +108,7 @@ await JSONPath.init();
 Verify your installation:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = { greeting: 'Hello, jsonpathx!' };
 const result = await JSONPath.query('$.greeting', data);

@@ -167,7 +167,7 @@ JSONPath.query(path, obj, { flatten: true });
 Static method available for manual array flattening:
 
 ```typescript
-import { ResultFormatter } from 'jsonpathx';
+import { ResultFormatter } from '@jsonpathx/jsonpathx';
 
 const nested = [[1, 2], [3, 4]];
 const flat = ResultFormatter.formatValues(nested, { flatten: 1 });

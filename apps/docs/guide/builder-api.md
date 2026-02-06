@@ -7,7 +7,7 @@ The QueryBuilder provides a fluent API for building and executing JSONPath queri
 Create a builder instance with your data:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = { /* your data */ };
 const builder = JSONPath.create(data);

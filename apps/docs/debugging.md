@@ -5,7 +5,7 @@ This guide covers debugging jsonpathx in Node.js and browser environments.
 ## Basic Checks
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.query('$.items[*]', data);
 console.log(result);

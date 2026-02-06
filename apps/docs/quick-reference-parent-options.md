@@ -3,7 +3,7 @@
 ## Quick Start
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Basic usage
 const parent = { items: [...], metadata: {...} };

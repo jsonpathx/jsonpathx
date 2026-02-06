@@ -7,7 +7,7 @@ Utility functions for working with JSONPath strings and JSON Pointers. Learn how
 jsonpathx provides utility functions for path manipulation, conversion between path formats, and programmatic path construction.
 
 ```typescript
-import { PathUtils } from 'jsonpathx';
+import { PathUtils } from '@jsonpathx/jsonpathx';
 ```
 
 ## Path Formats
@@ -43,7 +43,7 @@ $['store']['books'][0]['title']
 Convert JSONPath expression to JSON Pointer.
 
 ```typescript
-import { PathUtils } from 'jsonpathx';
+import { PathUtils } from '@jsonpathx/jsonpathx';
 
 const path = '$.store.books[0].title';
 const pointer = PathUtils.toPointer(path);

@@ -46,7 +46,7 @@ Every npm package includes:
 
 ```typescript
 // Recommended: Import what you need
-import { JSONPath, QueryBuilder, PathUtils } from 'jsonpathx';
+import { JSONPath, QueryBuilder, PathUtils } from '@jsonpathx/jsonpathx';
 
 // Query data
 const result = await JSONPath.query('$.users[*].name', data);
@@ -63,7 +63,7 @@ const pathArray = PathUtils.toPathArray('$.store.book[0]');
 
 ```typescript
 // Import default (the JSONPath class)
-import JSONPath from 'jsonpathx';
+import JSONPath from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.query('$.data', { data: [1, 2, 3] });
 ```
@@ -72,7 +72,7 @@ const result = await JSONPath.query('$.data', { data: [1, 2, 3] });
 
 ```typescript
 // Both default and named imports
-import JSONPath, { QueryBuilder, PathUtils } from 'jsonpathx';
+import JSONPath, { QueryBuilder, PathUtils } from '@jsonpathx/jsonpathx';
 ```
 
 ### Dynamic Imports
@@ -80,7 +80,7 @@ import JSONPath, { QueryBuilder, PathUtils } from 'jsonpathx';
 ```typescript
 // Lazy load for code splitting
 async function queryData() {
-  const { JSONPath } = await import('jsonpathx');
+  const { JSONPath } = await import('@jsonpathx/jsonpathx');
   return JSONPath.query('$.users[*]', data);
 }
 ```
@@ -111,7 +111,7 @@ async function queryData() {
 
 ```javascript
 // Recommended: Use named exports
-const { JSONPath, QueryBuilder, PathUtils } = require('jsonpathx');
+const { JSONPath, QueryBuilder, PathUtils } = require('@jsonpathx/jsonpathx');
 
 // Query data
 const result = await JSONPath.query('$.users[*].name', data);
@@ -125,7 +125,7 @@ const filtered = await builder.query('$.items[*]').execute();
 
 ```javascript
 // Access via .default property
-const module = require('jsonpathx');
+const module = require('@jsonpathx/jsonpathx');
 const JSONPath = module.default || module.JSONPath;
 
 const result = await JSONPath.query('$.data', { data: [1, 2, 3] });
@@ -162,7 +162,7 @@ const result = await JSONPath.query('$.data', { data: [1, 2, 3] });
 
 ```typescript
 // index.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.query('$.users[*].email', data);
 ```
@@ -183,7 +183,7 @@ const result = await JSONPath.query('$.users[*].email', data);
 
 ```typescript
 // index.ts (will compile to require())
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.query('$.users[*].email', data);
 ```
@@ -192,10 +192,10 @@ const result = await JSONPath.query('$.users[*].email', data);
 
 ```typescript
 // Import types only (no runtime code)
-import type { QueryOptions, ResultType } from 'jsonpathx';
+import type { QueryOptions, ResultType } from '@jsonpathx/jsonpathx';
 
 // Import runtime and types
-import { JSONPath, type QueryOptions } from 'jsonpathx';
+import { JSONPath, type QueryOptions } from '@jsonpathx/jsonpathx';
 
 const options: QueryOptions = {
   resultType: 'path',
@@ -220,7 +220,7 @@ export default {
 
 ```typescript
 // src/main.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 ```
 
 ### Webpack 5
@@ -275,7 +275,7 @@ Works automatically:
 
 ```typescript
 // index.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 ```
 
 ---
@@ -286,7 +286,7 @@ import { JSONPath } from 'jsonpathx';
 
 ```typescript
 // app/page.tsx (App Router)
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export default async function Page() {
   const data = await fetch('https://api.example.com/data');
@@ -301,7 +301,7 @@ export default async function Page() {
 
 ```typescript
 // composables/useJsonPath.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export const useJsonPath = () => {
   return {
@@ -314,7 +314,7 @@ export const useJsonPath = () => {
 
 ```typescript
 // src/routes/+page.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export async function load() {
   const data = { users: [{ name: 'Alice' }] };
@@ -328,7 +328,7 @@ export async function load() {
 
 ```typescript
 // src/App.tsx
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import { useEffect, useState } from 'react';
 
 export function App() {
@@ -348,7 +348,7 @@ export function App() {
 // src/App.vue
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = ref([]);
 
@@ -376,7 +376,7 @@ export default {
 ```typescript
 // test.ts
 import { describe, it, expect } from 'vitest';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 describe('JSONPath', () => {
   it('should query data', async () => {
@@ -397,7 +397,7 @@ module.exports = {
 
 ```javascript
 // test.js
-const { JSONPath } = require('jsonpathx');
+const { JSONPath } = require('@jsonpathx/jsonpathx');
 
 test('should query data', async () => {
   const result = await JSONPath.query('$.name', { name: 'test' });
@@ -444,7 +444,7 @@ module.exports = {
 
 **Solution 2:** Use CommonJS:
 ```javascript
-const { JSONPath } = require('jsonpathx');
+const { JSONPath } = require('@jsonpathx/jsonpathx');
 ```
 
 **Solution 3:** Use .mjs extension:
@@ -461,10 +461,10 @@ mv index.js index.mjs
 **Solution:** Use dynamic import:
 ```javascript
 // Instead of:
-const { JSONPath } = require('jsonpathx'); // ❌
+const { JSONPath } = require('@jsonpathx/jsonpathx'); // ❌
 
 // Use:
-const { JSONPath } = await import('jsonpathx'); // ✅
+const { JSONPath } = await import('@jsonpathx/jsonpathx'); // ✅
 ```
 
 ---
@@ -538,27 +538,27 @@ For older bundlers, use main/module fields:
 
 ```typescript
 // ✅ Good - Tree-shakeable
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // ⚠️ Less optimal - Imports everything
-import * as jsonpathx from 'jsonpathx';
+import * as jsonpathx from '@jsonpathx/jsonpathx';
 ```
 
 ### 2. Use Type-Only Imports
 
 ```typescript
 // ✅ Good - No runtime cost
-import { JSONPath, type QueryOptions } from 'jsonpathx';
+import { JSONPath, type QueryOptions } from '@jsonpathx/jsonpathx';
 
 // ⚠️ Less optimal - Runtime import
-import { JSONPath, QueryOptions } from 'jsonpathx';
+import { JSONPath, QueryOptions } from '@jsonpathx/jsonpathx';
 ```
 
 ### 3. Lazy Load When Possible
 
 ```typescript
 // ✅ Good - Code splitting
-const loadJSONPath = () => import('jsonpathx');
+const loadJSONPath = () => import('@jsonpathx/jsonpathx');
 
 button.onclick = async () => {
   const { JSONPath } = await loadJSONPath();

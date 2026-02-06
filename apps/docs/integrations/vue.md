@@ -5,7 +5,7 @@ Complete guide to using jsonpathx with Vue.js. Learn how to integrate JSONPath q
 ## Installation
 
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Vue 3 Composition API
@@ -15,7 +15,7 @@ npm install jsonpathx
 ```vue
 <script setup>
 import { ref, computed } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = ref({
   users: [
@@ -51,7 +51,7 @@ Create a reusable composable for JSONPath queries:
 ```typescript
 // composables/useJSONPath.ts
 import { ref, watch, toValue } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import type { MaybeRefOrGetter } from 'vue';
 
 export function useJSONPath<T = unknown>(
@@ -148,7 +148,7 @@ const { result, loading, error, refetch } = useJSONPath<User>(path, data);
 ```typescript
 // stores/data.ts
 import { defineStore } from 'pinia';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export const useDataStore = defineStore('data', {
   state: () => ({
@@ -234,7 +234,7 @@ fetch('/api/data')
 ```typescript
 // store/index.ts
 import { createStore } from 'vuex';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export default createStore({
   state: {
@@ -284,7 +284,7 @@ export default createStore({
 ```vue
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const products = ref([]);
 const minPrice = ref(0);
@@ -339,7 +339,7 @@ onUnmounted(() => {
 ```vue
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const users = ref([
   { id: 1, name: 'Alice', age: 30, city: 'NYC' },
@@ -405,7 +405,7 @@ const filteredUsers = computed(async () => {
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 interface Product {
   id: number;
@@ -433,7 +433,7 @@ const loadFeatured = async () => {
 
 ```vue
 <script setup lang="ts">
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Server-side data fetching
 const { data } = await useAsyncData('products', async () => {
@@ -462,7 +462,7 @@ const { data } = await useAsyncData('products', async () => {
 
 ```typescript
 import { computed, ref } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = ref({});
 const path = ref('$.items[*]');
@@ -481,7 +481,7 @@ const result = computed(async () => {
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const searchTerm = ref('');
 const results = ref([]);
@@ -509,7 +509,7 @@ watch(searchTerm, search);
 ```typescript
 // main.ts or app.vue
 import { createApp } from 'vue';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import App from './App.vue';
 
 // Initialize engine before mounting

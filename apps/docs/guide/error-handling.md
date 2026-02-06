@@ -5,7 +5,7 @@ This guide covers common error scenarios and how to handle them.
 ## Invalid JSONPath
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 try {
   JSONPath.parse('$.invalid..path');

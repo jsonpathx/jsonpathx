@@ -3,7 +3,7 @@
 QueryBuilder is included in the main `jsonpathx` package (no separate package).
 
 ```typescript
-import { JSONPath, QueryBuilder } from 'jsonpathx';
+import { JSONPath, QueryBuilder } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.create(data)
   .query('$.items[*]')

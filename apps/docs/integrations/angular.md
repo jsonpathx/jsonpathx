@@ -5,7 +5,7 @@ Complete guide to using jsonpathx with Angular. Learn how to integrate JSONPath 
 ## Installation
 
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Service Integration
@@ -15,7 +15,7 @@ npm install jsonpathx
 ```typescript
 // services/jsonpath.service.ts
 import { Injectable } from '@angular/core';
-import { JSONPath, QueryOptions } from 'jsonpathx';
+import { JSONPath, QueryOptions } from '@jsonpathx/jsonpathx';
 import { Observable, from, of } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 
@@ -113,7 +113,7 @@ export class UserListComponent implements OnInit {
 ```typescript
 // pipes/jsonpath.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 @Pipe({
   name: 'jsonpath',
@@ -177,7 +177,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 @Directive({
   selector: '[appJsonpathQuery]'
@@ -267,7 +267,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import * as DataActions from './data.actions';
 
 @Injectable()
@@ -414,7 +414,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 @Injectable({
   providedIn: 'root'
@@ -522,7 +522,7 @@ export class JsonPathService {
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 import { JsonPathService } from './services/jsonpath.service';
 import { JsonPathPipe } from './pipes/jsonpath.pipe';

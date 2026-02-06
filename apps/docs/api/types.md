@@ -39,10 +39,10 @@ jsonpathx is built with TypeScript-first design, providing comprehensive type de
 
 ```typescript
 // Import from main package
-import type { QueryOptions, ResultType } from 'jsonpathx';
+import type { QueryOptions, ResultType } from '@jsonpathx/jsonpathx';
 
 // All types are exported from the main package
-import type { QueryOptions, ResultType } from 'jsonpathx';
+import type { QueryOptions, ResultType } from '@jsonpathx/jsonpathx';
 ```
 
 ---
@@ -128,7 +128,7 @@ interface QueryConfig extends QueryOptions {
 **Example:**
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const config: QueryConfig = {
   path: '$.store.book[*]',
@@ -608,7 +608,7 @@ const DEFAULT_CACHE_OPTIONS: Required<CacheOptions> = {
 **Example:**
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable caching with custom options
 JSONPath.enableCache({

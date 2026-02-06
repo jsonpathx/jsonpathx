@@ -15,7 +15,7 @@ jsonpathx includes a sophisticated caching system with:
 ### Global Cache
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable caching globally
 JSONPath.enableCache({

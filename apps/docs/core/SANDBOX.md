@@ -26,7 +26,7 @@ Function names must:
 ### Basic Example
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   items: [
@@ -379,7 +379,7 @@ await JSONPath.query(path, data, {
 ### Typed Sandbox
 
 ```typescript
-import type { Sandbox } from 'jsonpathx';
+import type { Sandbox } from '@jsonpathx/jsonpathx';
 
 interface Item {
   x: number;

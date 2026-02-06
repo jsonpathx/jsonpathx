@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   resolve: {
     alias: {
-      jsonpathx: path.resolve(__dirname, "../../packages/jsonpathx/src")
+      "@jsonpathx/jsonpathx": path.resolve(__dirname, "../../packages/jsonpathx/src")
     }
   }
 });

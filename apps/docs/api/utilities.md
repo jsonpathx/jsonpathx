@@ -9,7 +9,7 @@ Utilities for working with JSONPath expressions and JSON Pointers.
 ### Import
 
 ```typescript
-import { PathUtils } from 'jsonpathx';
+import { PathUtils } from '@jsonpathx/jsonpathx';
 ```
 
 ### Methods
@@ -283,7 +283,7 @@ PathUtils.contains('$.store.books[0]', 'books');
 ### Import
 
 ```typescript
-import { QueryCache, getGlobalCache, resetGlobalCache } from 'jsonpathx';
+import { QueryCache, getGlobalCache, resetGlobalCache } from '@jsonpathx/jsonpathx';
 ```
 
 ### QueryCache Class
@@ -424,7 +424,7 @@ import {
   ParentChainTracker,
   buildParentChain,
   navigateUp
-} from 'jsonpathx';
+} from '@jsonpathx/jsonpathx';
 ```
 
 ### ParentChainTracker Class
@@ -533,7 +533,7 @@ import {
   createSafeSandbox,
   resolveSandbox,
   getFunctionNames
-} from 'jsonpathx';
+} from '@jsonpathx/jsonpathx';
 ```
 
 ### Functions
@@ -625,7 +625,7 @@ console.log('Available functions:', names);
 ### Import
 
 ```typescript
-import { ResultFormatter } from 'jsonpathx';
+import { ResultFormatter } from '@jsonpathx/jsonpathx';
 ```
 
 ### ResultFormatter Class
@@ -680,7 +680,7 @@ Utility type guards for TypeScript.
 ### Import
 
 ```typescript
-import { isAllTypesResult } from 'jsonpathx';
+import { isAllTypesResult } from '@jsonpathx/jsonpathx';
 ```
 
 ### Functions

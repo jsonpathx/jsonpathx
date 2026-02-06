@@ -14,7 +14,7 @@ npm install express jsonpathx
 
 ```typescript
 import express from 'express';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Middleware to add JSONPath query capability
 function jsonPathMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -42,7 +42,7 @@ app.get('/api/users', async (req, res) => {
 ### Request Body Transformation
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 async function transformRequestBody(
   req: express.Request,
@@ -98,7 +98,7 @@ app.post('/api/query', async (req, res) => {
 ### Search Endpoint
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 app.get('/api/products/search', async (req, res) => {
   try {
@@ -155,7 +155,7 @@ app.get('/api/products/search', async (req, res) => {
 ### Data Mutation Endpoint
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 app.patch('/api/data', async (req, res) => {
   try {
@@ -231,7 +231,7 @@ app.get('/api/users',
 ## Error Handling
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 app.use(async (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (err.name === 'JSONPathError') {
@@ -250,7 +250,7 @@ app.use(async (err: any, req: express.Request, res: express.Response, next: expr
 ## Validation Middleware
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 async function validateRequest(schema: any) {
   return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -289,7 +289,7 @@ app.post('/api/users',
 ## Caching Layer
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const cache = new Map();
 
@@ -322,7 +322,7 @@ JSONPath.enableCache({ maxSize: 200, ttl: 120000 });
 
 ```typescript
 import express from 'express';
-import { JSONPath, Mutation } from 'jsonpathx';
+import { JSONPath, Mutation } from '@jsonpathx/jsonpathx';
 
 const app = express();
 app.use(express.json());

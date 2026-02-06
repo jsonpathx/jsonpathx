@@ -57,7 +57,7 @@ interface QueryOptions {
 ### Basic Usage
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const parent = {
   items: [

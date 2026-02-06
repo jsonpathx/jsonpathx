@@ -5,14 +5,14 @@ Integrate jsonpathx with React applications. Learn about hooks, state management
 ## Installation
 
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Basic Usage in Components
 
 ```typescript
 import React, { useState, useEffect } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -46,7 +46,7 @@ function ProductList() {
 
 ```typescript
 import { useState, useEffect, useCallback } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 function useJSONPath<T = unknown>(
   data: unknown,
@@ -113,7 +113,7 @@ function UserList({ data }) {
 
 ```typescript
 import { useState, useMemo } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 function useQueryBuilder<T>(data: unknown, initialPath: string) {
   const [filters, setFilters] = useState<Array<(item: T) => boolean>>([]);
@@ -155,7 +155,7 @@ function useQueryBuilder<T>(data: unknown, initialPath: string) {
 
 ```typescript
 // actions.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 export const FILTER_PRODUCTS = 'FILTER_PRODUCTS';
@@ -185,7 +185,7 @@ export const filterProducts = (data: any, filters: any) => async (dispatch: any)
 
 ```typescript
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 interface DataContextType {
   data: any;
@@ -238,7 +238,7 @@ function ProductFilter() {
 
 ```typescript
 import { useMemo } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 function OptimizedProductList({ data, category }) {
   const products = useMemo(() => {
@@ -262,7 +262,7 @@ function OptimizedProductList({ data, category }) {
 
 ```typescript
 import { useState, useEffect, useCallback } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import { debounce } from 'lodash';
 
 function SearchableList({ data }) {
@@ -317,7 +317,7 @@ function SearchableList({ data }) {
 
 ```typescript
 import { useState } from 'react';
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 function UserForm({ userData, onSave }) {
   const [data, setData] = useState(userData);
@@ -352,7 +352,7 @@ function UserForm({ userData, onSave }) {
 
 ```typescript
 import { useState, useEffect } from 'react';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 function LiveDataComponent({ socket }) {
   const [data, setData] = useState(null);

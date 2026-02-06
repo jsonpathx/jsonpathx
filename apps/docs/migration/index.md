@@ -61,8 +61,8 @@ const products = await JSONPath.query<Product>('$.products[*]', data);
 
 ## Migration Checklist
 
-- [ ] Install jsonpathx: `npm install jsonpathx`
-- [ ] Update imports: `import { JSONPath } from 'jsonpathx'`
+- [ ] Install jsonpathx: `npm install @jsonpathx/jsonpathx`
+- [ ] Update imports: `import { JSONPath } from '@jsonpathx/jsonpathx'`
 - [ ] Change API calls: `JSONPath.query(path, data, options)`
 - [ ] Add `await` to queries (or use `querySync` if you prefer sync)
 - [ ] Update result type options if needed
@@ -81,7 +81,7 @@ const products = await JSONPath.query<Product>('$.products[*]', data);
 import { JSONPath } from 'jsonpath-plus';
 
 // After (jsonpathx) - same!
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 ```
 
 ### Query Syntax
@@ -129,7 +129,7 @@ Migrate incrementally:
 
 ```typescript
 // compatibility.ts
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 export function jsonPathLegacy(options: any) {
   return JSONPath.query(options.path, options.json, {

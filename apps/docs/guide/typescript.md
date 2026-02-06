@@ -29,7 +29,7 @@ jsonpathx is built with TypeScript-first design, providing comprehensive type de
 ### Type Safety Benefits
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 interface User {
   id: number;
@@ -404,7 +404,7 @@ import type {
   QueryResultEntry,
   AllTypesResult,
   ParentChainResult
-} from 'jsonpathx';
+} from '@jsonpathx/jsonpathx';
 
 // Use built-in utility types
 type Entry = QueryResultEntry;
@@ -603,7 +603,7 @@ const cheap = await repo.findWhere(p => p.price < 100);
 ### Type-Safe Mutations
 
 ```typescript
-import { Mutation, MutationResult } from 'jsonpathx';
+import { Mutation, MutationResult } from '@jsonpathx/jsonpathx';
 
 async function typedSet<T, K extends keyof T>(
   data: { [key: string]: T[] },

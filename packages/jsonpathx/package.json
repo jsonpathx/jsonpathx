@@ -1,5 +1,5 @@
 {
-  "name": "jsonpathx",
+  "name": "@jsonpathx/jsonpathx",
   "version": "0.1.0",
   "private": false,
   "description": "Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility.",

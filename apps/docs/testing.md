@@ -20,7 +20,7 @@ Comprehensive guide to testing jsonpathx in your applications. Learn best practi
 
 ```typescript
 import { describe, it, expect } from 'vitest';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 describe('JSONPath Queries', () => {
   const data = {
@@ -246,7 +246,7 @@ describe('Result Types Snapshots', () => {
 ```typescript
 import request from 'supertest';
 import express from 'express';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const app = express();
 app.use(express.json());
@@ -275,7 +275,7 @@ describe('API Integration', () => {
 ### Database Integration
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 describe('Database Integration', () => {
   it('should query JSON column', async () => {
@@ -294,7 +294,7 @@ describe('Database Integration', () => {
 ### External API Testing
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import nock from 'nock';
 
 describe('External API', () => {
@@ -326,7 +326,7 @@ describe('External API', () => {
 
 ```typescript
 import { describe, it, expect } from 'vitest';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 describe('Performance Tests', () => {
   it('should complete within time limit', async () => {

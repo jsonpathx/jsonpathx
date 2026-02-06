@@ -117,10 +117,10 @@ type ResultType =
 ### Path Utilities
 
 ```typescript
-import { PathUtils } from 'jsonpathx';
+import { PathUtils } from '@jsonpathx/jsonpathx';
 
 // Or individual functions
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 JSONPath.toPathArray('$.store.book[0]');
 ```
 
@@ -140,7 +140,7 @@ JSONPath.toPathArray('$.store.book[0]');
 ### Basic Query
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = { items: [1, 2, 3] };
 const result = await JSONPath.query('$.items[*]', data);

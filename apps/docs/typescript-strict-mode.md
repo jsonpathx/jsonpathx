@@ -562,10 +562,10 @@ function process(value: unknown) {
 
 ```typescript
 // ✅ Good - no runtime cost
-import { JSONPath, type QueryOptions } from 'jsonpathx';
+import { JSONPath, type QueryOptions } from '@jsonpathx/jsonpathx';
 
 // ⚠️ Less optimal - runtime import
-import { JSONPath, QueryOptions } from 'jsonpathx';
+import { JSONPath, QueryOptions } from '@jsonpathx/jsonpathx';
 ```
 
 ### 3. Use Optional Chaining

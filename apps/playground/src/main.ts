@@ -1,5 +1,5 @@
 import "./style.css";
-import { JSONPath } from "jsonpathx";
+import { JSONPath } from "@jsonpathx/jsonpathx";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) {

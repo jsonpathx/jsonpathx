@@ -20,7 +20,7 @@ Practical examples of custom filter functions using the sandbox. Learn how to ex
 ### Example 1: Simple Predicates
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   products: [

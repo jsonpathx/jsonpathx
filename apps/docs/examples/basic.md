@@ -7,7 +7,7 @@ Simple JSONPath queries for common use cases.
 ### Single Property
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   name: 'John Doe',

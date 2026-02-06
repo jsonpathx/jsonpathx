@@ -20,7 +20,7 @@ Complex JSONPath queries and advanced patterns for power users. Master recursive
 ### Example 1: Finding Values at Any Depth
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const data = {
   level1: {

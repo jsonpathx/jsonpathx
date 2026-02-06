@@ -11,7 +11,7 @@ jsonpathx includes an LRU (Least Recently Used) cache with TTL (Time To Live) su
 ### Enable Global Cache
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable cache with default settings
 JSONPath.enableCache();
@@ -403,7 +403,7 @@ async function prewarmCache(data: any) {
 
 ```typescript
 // Custom cache implementation with logging
-import { QueryCache } from 'jsonpathx';
+import { QueryCache } from '@jsonpathx/jsonpathx';
 
 class LoggingCache extends QueryCache {
   get(key: string) {

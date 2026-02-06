@@ -11,7 +11,7 @@ npm install graphql jsonpathx
 ## Basic Integration
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql';
 
 const UserType = new GraphQLObjectType({
@@ -40,7 +40,7 @@ const QueryType = new GraphQLObjectType({
 ## Field Resolvers with JSONPath
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const ProductType = new GraphQLObjectType({
   name: 'Product',
@@ -118,7 +118,7 @@ const QueryType = new GraphQLObjectType({
 
 ```typescript
 import DataLoader from 'dataloader';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 class ProductLoader {
   private data: any;
@@ -159,7 +159,7 @@ const context = {
 ## Mutations with JSONPath
 
 ```typescript
-import { Mutation } from 'jsonpathx';
+import { Mutation } from '@jsonpathx/jsonpathx';
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -252,7 +252,7 @@ const OrderType = new GraphQLObjectType({
 
 ```typescript
 import { SchemaDirectiveVisitor } from 'graphql-tools';
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 class JsonPathDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field: any) {
@@ -286,7 +286,7 @@ const typeDefs = `
 ### Query Caching
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable caching
 JSONPath.enableCache({
@@ -326,7 +326,7 @@ async function batchResolve(parent: any, keys: string[], context: any) {
 
 ```typescript
 import { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLString, GraphQLFloat, GraphQLBoolean } from 'graphql';
-import { JSONPath, Mutation } from 'jsonpathx';
+import { JSONPath, Mutation } from '@jsonpathx/jsonpathx';
 
 // Types
 const ProductType = new GraphQLObjectType({

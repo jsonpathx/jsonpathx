@@ -213,7 +213,7 @@ const threshold = computeThreshold();
 Enable caching for frequently-used queries:
 
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Enable global cache
 JSONPath.enableCache({
@@ -380,7 +380,7 @@ const result = await pipeline.execute(data);
 Process large arrays without loading everything into memory:
 
 ```typescript
-import { streamArray } from 'jsonpathx';
+import { streamArray } from '@jsonpathx/jsonpathx';
 
 // Stream large array
 for await (const item of streamArray(largeData, '$.items[*]')) {
@@ -396,7 +396,7 @@ for await (const item of streamArray(largeData, '$.items[*]')) {
 Process in batches for better performance:
 
 ```typescript
-import { streamArrayBatched } from 'jsonpathx';
+import { streamArrayBatched } from '@jsonpathx/jsonpathx';
 
 for await (const batch of streamArrayBatched(largeData, '$.items[*]', {
   batchSize: 100
@@ -411,7 +411,7 @@ for await (const batch of streamArrayBatched(largeData, '$.items[*]', {
 Stream large JSON files:
 
 ```typescript
-import { streamArrayFile } from 'jsonpathx';
+import { streamArrayFile } from '@jsonpathx/jsonpathx';
 
 // Stream from file
 for await (const item of streamArrayFile('./large-file.json', '$.items[*]')) {
@@ -422,7 +422,7 @@ for await (const item of streamArrayFile('./large-file.json', '$.items[*]')) {
 ### Streaming with Transformations
 
 ```typescript
-import { transformArray, filterArray } from 'jsonpathx';
+import { transformArray, filterArray } from '@jsonpathx/jsonpathx';
 
 // Transform large arrays efficiently
 const transformed = await transformArray(

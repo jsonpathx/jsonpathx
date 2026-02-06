@@ -8,7 +8,7 @@ Replace jsonpath-plus with jsonpathx:
 
 ```bash
 npm uninstall jsonpath-plus
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ## Import Changes
@@ -20,7 +20,7 @@ Update your imports:
 import { JSONPath } from 'jsonpath-plus';
 
 // jsonpathx (same!)
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 ```
 
 ## API Changes
@@ -41,7 +41,7 @@ const result = JSONPath({
 
 **jsonpathx:**
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 const result = await JSONPath.query('$.store.book[*]', data);
 ```
@@ -175,7 +175,7 @@ JSONPath.toPointer(['$', 'store', 'book', 0]);
 
 **jsonpathx (same API!):**
 ```typescript
-import { JSONPath } from 'jsonpathx';
+import { JSONPath } from '@jsonpathx/jsonpathx';
 
 // Convert to path array
 JSONPath.toPathArray('$.store.book[0]');
@@ -461,7 +461,7 @@ const names = await JSONPath.create(data)
 
 Make sure jsonpathx is installed:
 ```bash
-npm install jsonpathx
+npm install @jsonpathx/jsonpathx
 ```
 
 ### Issue: "Cannot use await"

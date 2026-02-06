@@ -17,7 +17,7 @@ The streaming API allows you to process JSON arrays incrementally, yielding one 
 Stream array elements one at a time:
 
 ```typescript
-import { streamArray } from 'jsonpathx';
+import { streamArray } from '@jsonpathx/jsonpathx';
 
 const data = {
   items: [/* millions of items */]
@@ -42,7 +42,7 @@ for await (const item of streamArray(data, '$.items[*]')) {
 Process items in batches for better performance:
 
 ```typescript
-import { streamArrayBatched } from 'jsonpathx';
+import { streamArrayBatched } from '@jsonpathx/jsonpathx';
 
 // Process 100 items at a time
 for await (const batch of streamArrayBatched(data, '$.items[*]', { batchSize: 100 })) {
@@ -63,7 +63,7 @@ for await (const batch of streamArrayBatched(data, '$.items[*]', { batchSize: 10
 Stream directly from large JSON files:
 
 ```typescript
-import { streamArrayFile } from 'jsonpathx';
+import { streamArrayFile } from '@jsonpathx/jsonpathx';
 
 // Stream from 1GB+ JSON file
 for await (const item of streamArrayFile('huge-data.json', '$.items[*]')) {
@@ -109,7 +109,7 @@ for await (const item of streamArray(data, '$.items[*]', {
 ### Filter While Streaming
 
 ```typescript
-import { filterArray } from 'jsonpathx';
+import { filterArray } from '@jsonpathx/jsonpathx';
 
 // Stream only matching items
 for await (const item of filterArray(data, '$.items[*]', item => item.active)) {
@@ -120,7 +120,7 @@ for await (const item of filterArray(data, '$.items[*]', item => item.active)) {
 ### Transform While Streaming
 
 ```typescript
-import { transformArray } from 'jsonpathx';
+import { transformArray } from '@jsonpathx/jsonpathx';
 
 // Transform items as they stream
 for await (const transformed of transformArray(
@@ -135,7 +135,7 @@ for await (const transformed of transformArray(
 ### Reduce While Streaming
 
 ```typescript
-import { reduceArray } from 'jsonpathx';
+import { reduceArray } from '@jsonpathx/jsonpathx';
 
 // Calculate aggregate without loading all data
 const sum = await reduceArray(
@@ -232,7 +232,7 @@ for await (const item of streamArray(hugeData, '$.items[*]')) {
 Count matching items without loading them:
 
 ```typescript
-import { countMatches } from 'jsonpathx';
+import { countMatches } from '@jsonpathx/jsonpathx';
 
 // Count without loading into memory
 const count = await countMatches(data, '$.items[?(@.active === true)]');
@@ -246,7 +246,7 @@ console.log(`Found ${count} active items`);
 Stop at first matching item:
 
 ```typescript
-import { findFirst } from 'jsonpathx';
+import { findFirst } from '@jsonpathx/jsonpathx';
 
 // Find first match and stop
 const first = await findFirst(data, '$.items[?(@.id === 123)]');
