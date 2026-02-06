@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Sync package README
+        run: cp README.md packages/jsonpathx/README.md
+
       - name: Publish
         run: npm publish --workspace packages/jsonpathx --access public
         env:
