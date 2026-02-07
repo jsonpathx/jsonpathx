@@ -1,3 +1,8 @@
+---
+layout: doc
+title: Benchmarks
+---
+
 # Benchmarks
 
 Generated: 2026-02-06

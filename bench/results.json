@@ -18,9 +18,9 @@
       "path": "$",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 6435334,
+      "iterations": 5129608,
       "seconds": 0.5,
-      "ops": 12870665.86,
+      "ops": 10259215.14,
       "error": null
     },
     {
@@ -29,9 +29,9 @@
       "path": "$",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 1816171,
+      "iterations": 1599646,
       "seconds": 0.5,
-      "ops": 3632341.39,
+      "ops": 3199291.46,
       "error": null
     },
     {
@@ -40,9 +40,9 @@
       "path": "$",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 710029,
+      "iterations": 595404,
       "seconds": 0.5,
-      "ops": 1420056.34,
+      "ops": 1190807.21,
       "error": null
     },
     {
@@ -51,9 +51,9 @@
       "path": "$.store.book[0].author",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 369326,
+      "iterations": 311664,
       "seconds": 0.5,
-      "ops": 738650.09,
+      "ops": 623327.22,
       "error": null
     },
     {
@@ -62,9 +62,9 @@
       "path": "$.store.book[0].author",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 781357,
+      "iterations": 680668,
       "seconds": 0.5,
-      "ops": 1562713.87,
+      "ops": 1361335.66,
       "error": null
     },
     {
@@ -73,9 +73,9 @@
       "path": "$.store.book[0].author",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 55789,
+      "iterations": 46063,
       "seconds": 0.5,
-      "ops": 111577.1,
+      "ops": 92125.74,
       "error": null
     },
     {
@@ -84,9 +84,9 @@
       "path": "$['store']['book'][0]['author']",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 367285,
+      "iterations": 322833,
       "seconds": 0.5,
-      "ops": 734568.29,
+      "ops": 645664.71,
       "error": null
     },
     {
@@ -95,9 +95,9 @@
       "path": "$['store']['book'][0]['author']",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 842547,
+      "iterations": 685437,
       "seconds": 0.5,
-      "ops": 1685094,
+      "ops": 1370873.43,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "path": "$['store']['book'][0]['author']",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 40386,
+      "iterations": 34897,
       "seconds": 0.5,
-      "ops": 80770.53,
+      "ops": 69793.46,
       "error": null
     },
     {
@@ -117,9 +117,9 @@
       "path": "$.store.*",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 303552,
+      "iterations": 244135,
       "seconds": 0.5,
-      "ops": 607103.7,
+      "ops": 488268.29,
       "error": null
     },
     {
@@ -128,9 +128,9 @@
       "path": "$.store.*",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 985495,
+      "iterations": 882746,
       "seconds": 0.5,
-      "ops": 1970988.36,
+      "ops": 1765490.97,
       "error": null
     },
     {
@@ -139,9 +139,9 @@
       "path": "$.store.*",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 112258,
+      "iterations": 94270,
       "seconds": 0.5,
-      "ops": 224515.44,
+      "ops": 188538.82,
       "error": null
     },
     {
@@ -150,9 +150,9 @@
       "path": "$..author",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 67737,
+      "iterations": 58271,
       "seconds": 0.5,
-      "ops": 135472.24,
+      "ops": 116541.91,
       "error": null
     },
     {
@@ -161,9 +161,9 @@
       "path": "$..author",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 253767,
+      "iterations": 210748,
       "seconds": 0.5,
-      "ops": 507532.27,
+      "ops": 421494.7,
       "error": null
     },
     {
@@ -172,9 +172,9 @@
       "path": "$..author",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 78704,
+      "iterations": 65474,
       "seconds": 0.5,
-      "ops": 157406.6,
+      "ops": 130947.45,
       "error": null
     },
     {
@@ -183,9 +183,9 @@
       "path": "$.store.book[0:2]",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 234829,
+      "iterations": 195923,
       "seconds": 0.5,
-      "ops": 469656.71,
+      "ops": 391845.31,
       "error": null
     },
     {
@@ -194,9 +194,9 @@
       "path": "$.store.book[0:2]",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 579502,
+      "iterations": 478079,
       "seconds": 0.5,
-      "ops": 1159000.91,
+      "ops": 956156.57,
       "error": null
     },
     {
@@ -205,9 +205,9 @@
       "path": "$.store.book[0:2]",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 63491,
+      "iterations": 49882,
       "seconds": 0.5,
-      "ops": 126980.87,
+      "ops": 99762.57,
       "error": null
     },
     {
@@ -216,9 +216,9 @@
       "path": "$.store.book[0,2]",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 230156,
+      "iterations": 146571,
       "seconds": 0.5,
-      "ops": 460311.77,
+      "ops": 293141.39,
       "error": null
     },
     {
@@ -227,9 +227,9 @@
       "path": "$.store.book[0,2]",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 533302,
+      "iterations": 407805,
       "seconds": 0.5,
-      "ops": 1066603.29,
+      "ops": 815609.66,
       "error": null
     },
     {
@@ -238,9 +238,9 @@
       "path": "$.store.book[0,2]",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 53016,
+      "iterations": 44089,
       "seconds": 0.5,
-      "ops": 106030.41,
+      "ops": 88176.1,
       "error": null
     },
     {
@@ -249,9 +249,9 @@
       "path": "$..book[?(@.price < 10)]",
       "engine": "jsonpathx",
       "eval": "native",
-      "iterations": 51618,
+      "iterations": 41722,
       "seconds": 0.5,
-      "ops": 103234.87,
+      "ops": 83442.92,
       "error": null
     },
     {
@@ -260,42 +260,42 @@
       "path": "$..book[?(@.price < 10)]",
       "engine": "jsonpath-plus",
       "eval": "native",
-      "iterations": 1853,
+      "iterations": 1675,
+      "seconds": 0.5003,
+      "ops": 3348.07,
+      "error": null
+    },
+    {
+      "dataset": "fixture",
+      "query": "filter",
+      "path": "$..book[?(@.price < 10)]",
+      "engine": "jsonpath",
+      "eval": "native",
+      "iterations": 42054,
+      "seconds": 0.5,
+      "ops": 84106.99,
+      "error": null
+    },
+    {
+      "dataset": "fixture",
+      "query": "script",
+      "path": "$..book[(@.length-1)]",
+      "engine": "jsonpathx",
+      "eval": "native",
+      "iterations": 72886,
+      "seconds": 0.5,
+      "ops": 145770.79,
+      "error": null
+    },
+    {
+      "dataset": "fixture",
+      "query": "script",
+      "path": "$..book[(@.length-1)]",
+      "engine": "jsonpath-plus",
+      "eval": "native",
+      "iterations": 1624,
       "seconds": 0.5002,
-      "ops": 3704.76,
-      "error": null
-    },
-    {
-      "dataset": "fixture",
-      "query": "filter",
-      "path": "$..book[?(@.price < 10)]",
-      "engine": "jsonpath",
-      "eval": "native",
-      "iterations": 49726,
-      "seconds": 0.5,
-      "ops": 99451.63,
-      "error": null
-    },
-    {
-      "dataset": "fixture",
-      "query": "script",
-      "path": "$..book[(@.length-1)]",
-      "engine": "jsonpathx",
-      "eval": "native",
-      "iterations": 82500,
-      "seconds": 0.5,
-      "ops": 164999.48,
-      "error": null
-    },
-    {
-      "dataset": "fixture",
-      "query": "script",
-      "path": "$..book[(@.length-1)]",
-      "engine": "jsonpath-plus",
-      "eval": "native",
-      "iterations": 1988,
-      "seconds": 0.5001,
-      "ops": 3974.99,
+      "ops": 3246.41,
       "error": null
     },
     {
@@ -304,9 +304,9 @@
       "path": "$..book[(@.length-1)]",
       "engine": "jsonpath",
       "eval": "native",
-      "iterations": 30764,
+      "iterations": 26477,
       "seconds": 0.5,
-      "ops": 61527.65,
+      "ops": 52952.64,
       "error": null
     },
     {
@@ -315,9 +315,9 @@
       "path": "$..book[?(@.price > 10)]^",
       "engine": "jsonpathx",
       "eval": "native",
-      "iterations": 42768,
+      "iterations": 43518,
       "seconds": 0.5,
-      "ops": 85535.74,
+      "ops": 87035.66,
       "error": null
     },
     {
@@ -326,9 +326,9 @@
       "path": "$..book[?(@.price > 10)]^",
       "engine": "jsonpath-plus",
       "eval": "native",
-      "iterations": 1681,
-      "seconds": 0.5001,
-      "ops": 3361.01,
+      "iterations": 1655,
+      "seconds": 0.5,
+      "ops": 3309.7,
       "error": null
     },
     {
@@ -348,9 +348,9 @@
       "path": "$.store.*~",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 258193,
+      "iterations": 228107,
       "seconds": 0.5,
-      "ops": 516384.84,
+      "ops": 456212.78,
       "error": null
     },
     {
@@ -359,9 +359,9 @@
       "path": "$.store.*~",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 793520,
+      "iterations": 682401,
       "seconds": 0.5,
-      "ops": 1587038.28,
+      "ops": 1364800.41,
       "error": null
     },
     {
@@ -381,9 +381,9 @@
       "path": "$..*@number()",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 46200,
+      "iterations": 39025,
       "seconds": 0.5,
-      "ops": 92399.01,
+      "ops": 78048.44,
       "error": null
     },
     {
@@ -392,9 +392,9 @@
       "path": "$..*@number()",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 115573,
+      "iterations": 100697,
       "seconds": 0.5,
-      "ops": 231144.07,
+      "ops": 201392.15,
       "error": null
     },
     {
@@ -414,9 +414,9 @@
       "path": "$",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 3474476,
+      "iterations": 3001025,
       "seconds": 0.35,
-      "ops": 9927074.29,
+      "ops": 8574357.14,
       "error": null
     },
     {
@@ -425,9 +425,9 @@
       "path": "$",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 1220883,
+      "iterations": 1024339,
       "seconds": 0.35,
-      "ops": 3488234.65,
+      "ops": 2926682.16,
       "error": null
     },
     {
@@ -436,196 +436,196 @@
       "path": "$",
       "engine": "jsonpath",
       "eval": "false",
-      "iterations": 483969,
-      "seconds": 0.35,
-      "ops": 1382767.25,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-brand",
-      "path": "$.cars[*].brand.name",
-      "engine": "jsonpathx",
-      "eval": "false",
-      "iterations": 5,
-      "seconds": 0.4159,
-      "ops": 12.02,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-brand",
-      "path": "$.cars[*].brand.name",
-      "engine": "jsonpath-plus",
-      "eval": "false",
-      "iterations": 13,
-      "seconds": 0.3612,
-      "ops": 35.99,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-brand",
-      "path": "$.cars[*].brand.name",
-      "engine": "jsonpath",
-      "eval": "false",
-      "iterations": 5,
-      "seconds": 32.6428,
-      "ops": 0.15,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-models",
-      "path": "$.cars[:25].model",
-      "engine": "jsonpathx",
-      "eval": "false",
-      "iterations": 15962,
-      "seconds": 0.35,
-      "ops": 45605.21,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-models",
-      "path": "$.cars[:25].model",
-      "engine": "jsonpath-plus",
-      "eval": "false",
-      "iterations": 45041,
-      "seconds": 0.35,
-      "ops": 128688.17,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-models",
-      "path": "$.cars[:25].model",
-      "engine": "jsonpath",
-      "eval": "false",
-      "iterations": 51,
-      "seconds": 0.3508,
-      "ops": 145.38,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-union",
-      "path": "$.cars[0,1,2].manufacturer",
-      "engine": "jsonpathx",
-      "eval": "false",
-      "iterations": 105056,
-      "seconds": 0.35,
-      "ops": 300159.82,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-union",
-      "path": "$.cars[0,1,2].manufacturer",
-      "engine": "jsonpath-plus",
-      "eval": "false",
-      "iterations": 246628,
-      "seconds": 0.35,
-      "ops": 704651.34,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-union",
-      "path": "$.cars[0,1,2].manufacturer",
-      "engine": "jsonpath",
-      "eval": "false",
-      "iterations": 110,
-      "seconds": 0.351,
-      "ops": 313.38,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-recursive",
-      "path": "$..engineDisplacement",
-      "engine": "jsonpathx",
-      "eval": "false",
-      "iterations": 5,
-      "seconds": 4.0448,
-      "ops": 1.24,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-recursive",
-      "path": "$..engineDisplacement",
-      "engine": "jsonpath-plus",
-      "eval": "false",
-      "iterations": 5,
-      "seconds": 0.5214,
-      "ops": 9.59,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-recursive",
-      "path": "$..engineDisplacement",
-      "engine": "jsonpath",
-      "eval": "false",
-      "iterations": 5,
-      "seconds": 2.1291,
-      "ops": 2.35,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-filter",
-      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
-      "engine": "jsonpathx",
-      "eval": "native",
-      "iterations": 5,
-      "seconds": 0.5659,
-      "ops": 8.83,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-filter",
-      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
-      "engine": "jsonpath-plus",
-      "eval": "native",
-      "iterations": 8,
-      "seconds": 0.3578,
-      "ops": 22.36,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-filter",
-      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
-      "engine": "jsonpath",
-      "eval": "native",
-      "iterations": 5,
-      "seconds": 16.2815,
-      "ops": 0.31,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-script",
-      "path": "$.cars[(@.length-1)].model",
-      "engine": "jsonpathx",
-      "eval": "native",
-      "iterations": 143272,
-      "seconds": 0.35,
-      "ops": 409345.99,
-      "error": null
-    },
-    {
-      "dataset": "cars",
-      "query": "cars-script",
-      "path": "$.cars[(@.length-1)].model",
-      "engine": "jsonpath-plus",
-      "eval": "native",
-      "iterations": 1424,
+      "iterations": 417513,
       "seconds": 0.3501,
-      "ops": 4067.03,
+      "ops": 1192542.2,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-brand",
+      "path": "$.cars[*].brand.name",
+      "engine": "jsonpathx",
+      "eval": "false",
+      "iterations": 5,
+      "seconds": 0.4883,
+      "ops": 10.24,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-brand",
+      "path": "$.cars[*].brand.name",
+      "engine": "jsonpath-plus",
+      "eval": "false",
+      "iterations": 12,
+      "seconds": 0.3777,
+      "ops": 31.77,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-brand",
+      "path": "$.cars[*].brand.name",
+      "engine": "jsonpath",
+      "eval": "false",
+      "iterations": 5,
+      "seconds": 36.2633,
+      "ops": 0.14,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-models",
+      "path": "$.cars[:25].model",
+      "engine": "jsonpathx",
+      "eval": "false",
+      "iterations": 14241,
+      "seconds": 0.35,
+      "ops": 40686.9,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-models",
+      "path": "$.cars[:25].model",
+      "engine": "jsonpath-plus",
+      "eval": "false",
+      "iterations": 35225,
+      "seconds": 0.35,
+      "ops": 100640.35,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-models",
+      "path": "$.cars[:25].model",
+      "engine": "jsonpath",
+      "eval": "false",
+      "iterations": 33,
+      "seconds": 0.3549,
+      "ops": 92.98,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-union",
+      "path": "$.cars[0,1,2].manufacturer",
+      "engine": "jsonpathx",
+      "eval": "false",
+      "iterations": 72966,
+      "seconds": 0.35,
+      "ops": 208472.03,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-union",
+      "path": "$.cars[0,1,2].manufacturer",
+      "engine": "jsonpath-plus",
+      "eval": "false",
+      "iterations": 198127,
+      "seconds": 0.35,
+      "ops": 566074.78,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-union",
+      "path": "$.cars[0,1,2].manufacturer",
+      "engine": "jsonpath",
+      "eval": "false",
+      "iterations": 89,
+      "seconds": 0.3501,
+      "ops": 254.19,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-recursive",
+      "path": "$..engineDisplacement",
+      "engine": "jsonpathx",
+      "eval": "false",
+      "iterations": 5,
+      "seconds": 4.3165,
+      "ops": 1.16,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-recursive",
+      "path": "$..engineDisplacement",
+      "engine": "jsonpath-plus",
+      "eval": "false",
+      "iterations": 5,
+      "seconds": 0.5446,
+      "ops": 9.18,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-recursive",
+      "path": "$..engineDisplacement",
+      "engine": "jsonpath",
+      "eval": "false",
+      "iterations": 5,
+      "seconds": 2.6168,
+      "ops": 1.91,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-filter",
+      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
+      "engine": "jsonpathx",
+      "eval": "native",
+      "iterations": 5,
+      "seconds": 0.8439,
+      "ops": 5.93,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-filter",
+      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
+      "engine": "jsonpath-plus",
+      "eval": "native",
+      "iterations": 6,
+      "seconds": 0.3702,
+      "ops": 16.21,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-filter",
+      "path": "$.cars[?(@.fuelType == 'Petrol')].model",
+      "engine": "jsonpath",
+      "eval": "native",
+      "iterations": 5,
+      "seconds": 19.4248,
+      "ops": 0.26,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-script",
+      "path": "$.cars[(@.length-1)].model",
+      "engine": "jsonpathx",
+      "eval": "native",
+      "iterations": 120006,
+      "seconds": 0.35,
+      "ops": 342874.29,
+      "error": null
+    },
+    {
+      "dataset": "cars",
+      "query": "cars-script",
+      "path": "$.cars[(@.length-1)].model",
+      "engine": "jsonpath-plus",
+      "eval": "native",
+      "iterations": 1232,
+      "seconds": 0.35,
+      "ops": 3519.54,
       "error": null
     },
     {
@@ -634,9 +634,9 @@
       "path": "$.cars[(@.length-1)].model",
       "engine": "jsonpath",
       "eval": "native",
-      "iterations": 329,
-      "seconds": 0.3504,
-      "ops": 939.06,
+      "iterations": 269,
+      "seconds": 0.3508,
+      "ops": 766.85,
       "error": null
     },
     {
@@ -645,9 +645,9 @@
       "path": "$.cars[0].extraFeatures.*~",
       "engine": "jsonpathx",
       "eval": "false",
-      "iterations": 43993,
+      "iterations": 34652,
       "seconds": 0.35,
-      "ops": 125692.3,
+      "ops": 99003.32,
       "error": null
     },
     {
@@ -656,9 +656,9 @@
       "path": "$.cars[0].extraFeatures.*~",
       "engine": "jsonpath-plus",
       "eval": "false",
-      "iterations": 236250,
+      "iterations": 200077,
       "seconds": 0.35,
-      "ops": 674998.31,
+      "ops": 571647.55,
       "error": null
     },
     {

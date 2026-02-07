@@ -208,13 +208,14 @@ const markdown = `${lines.join("\n")}\n`;
 const benchMd = path.join(root, "bench", "results.md");
 const benchJson = path.join(root, "bench", "results.json");
 const docsDir = path.join(root, "apps", "docs");
-const docsJson = path.join(docsDir, "bench.json");
+const docsBenchMd = path.join(docsDir, "bench.md");
 
 await writeFile(benchMd, markdown, "utf8");
 await writeFile(benchJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
 await mkdir(docsDir, { recursive: true });
-await writeFile(docsJson, JSON.stringify(jsonOutput, null, 2) + "\n", "utf8");
+const docsMarkdown = `---\nlayout: doc\ntitle: Benchmarks\n---\n\n${markdown}`;
+await writeFile(docsBenchMd, docsMarkdown, "utf8");
 
 console.log(`Wrote ${benchMd}`);
 console.log(`Wrote ${benchJson}`);
-console.log(`Wrote ${docsJson}`);
+console.log(`Wrote ${docsBenchMd}`);
