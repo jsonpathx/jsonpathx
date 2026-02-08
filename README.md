@@ -6,6 +6,10 @@
 [![CI](https://github.com/jsonpathx/jsonpathx/actions/workflows/pages.yml/badge.svg)](https://github.com/jsonpathx/jsonpathx/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+# Interactive JSONPath Playground 🛝
+Try out JSONPath queries in your browser with the interactive playground:
+https://jsonpathx-playground.vercel.app/
+
 ## Why jsonpathx? ⚡
 
 jsonpathx is a next-generation JSONPath library that combines standards compliance with a practical, developer-friendly API. It is actively maintained and focused on real-world performance.
