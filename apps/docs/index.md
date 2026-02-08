@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: View on GitHub
       link: https://github.com/jsonpathx/jsonpathx
+    - theme: alt
+      text: JSONPathX Playground
+      link: https://jsonpathx-playground.vercel.app/
   image:
     src: /logo.svg
     alt: jsonpathx
