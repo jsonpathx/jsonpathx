@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3 - 2026-02-08
+
+### Fixed
+- Ensure TypeScript declaration files are shipped in the npm package (dist/*.d.ts).
+- Add a publish-time build hook so the package always includes compiled artifacts.
+- Tighten npm packaging to include only dist, README, and LICENSE for predictable installs.
+
 ## 0.1.2 - 2026-02-08
 
 ### Fixed

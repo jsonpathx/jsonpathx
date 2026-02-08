@@ -4,10 +4,6 @@ tests/
 scripts/
 tsconfig.json
 
-# TypeScript sources outside dist
-*.ts
-*.tsx
-
 # Maps and logs
 *.map
 *.log
