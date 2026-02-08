@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.2 - 2026-02-08
+
+### Fixed
+- Library entry point to ensure packages load correctly.
+
+## 0.1.1 - 2026-02-07
+
+### Added
+- README content for initial package usage guidance.
+
+### Fixed
+- Package naming to align with published artifacts.
+
 ## 0.1.0 - 2026-02-06
 
 ### Added

@@ -5,3 +5,4 @@ apps/docs/.vitepress/dist/
 /apps/docs/bench.json
 .codex/
 /temp/
+.idea
