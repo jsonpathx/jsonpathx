@@ -14,7 +14,8 @@ const common = {
   globalName: "JSONPathX",
   platform: "browser",
   target: "es2018",
-  sourcemap: true
+  sourcemap: true,
+  external: ["node:fs/promises"]
 };
 
 await build({
