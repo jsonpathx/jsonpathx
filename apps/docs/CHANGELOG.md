@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.4 - 2026-02-08
+
+### Added
+- UMD/global build for browser usage with `window.JSONPathX` and CDN-friendly artifacts.
+- `unpkg`/`jsdelivr` package metadata to make CDN targeting frictionless.
+- Quick-start UMD example in the docs and package README for copy-paste browser usage.
+- Playground link in the docs home hero for instant experimentation.
+
+### Changed
+- Build pipeline now produces both ESM TypeScript outputs and browser UMD bundles in one pass.
+
 ## 0.1.3 - 2026-02-08
 
 ### Fixed

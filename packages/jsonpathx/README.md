@@ -25,6 +25,16 @@ The motivation is driven by jsonpath and jsonpath-plus. Both libraries are no lo
 npm install @jsonpathx/jsonpathx
 ```
 
+### Browser (UMD / Global)
+
+```html
+<script src="https://unpkg.com/@jsonpathx/jsonpathx/dist/jsonpathx.umd.min.js"></script>
+<script>
+  const { JSONPath } = window.JSONPathX;
+  JSONPath.query('$.items[*]', { items: [1, 2, 3] }).then(console.log);
+</script>
+```
+
 ## Quick Start 🚀
 
 ### Basic Usage ✨

@@ -81,6 +81,16 @@ jsonpathx works in modern browsers:
 </script>
 ```
 
+```html
+<!-- Via CDN (UMD / global) -->
+<script src="https://unpkg.com/@jsonpathx/jsonpathx/dist/jsonpathx.umd.min.js"></script>
+<script>
+  const { JSONPath } = window.JSONPathX;
+  const data = { items: [1, 2, 3] };
+  JSONPath.query('$.items[*]', data).then(console.log);
+</script>
+```
+
 ### Browser Support
 
 - Chrome 57+

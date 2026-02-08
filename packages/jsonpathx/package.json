@@ -1,11 +1,13 @@
 {
   "name": "@jsonpathx/jsonpathx",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "description": "Modern, high-performance JSONPath library with RFC 9535 compliance and jsonpath-plus compatibility.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "unpkg": "./dist/jsonpathx.umd.min.js",
+  "jsdelivr": "./dist/jsonpathx.umd.min.js",
   "files": [
     "dist",
     "README.md",
@@ -16,10 +18,18 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./umd": {
+      "default": "./dist/jsonpathx.umd.js"
+    },
+    "./umd.min": {
+      "default": "./dist/jsonpathx.umd.min.js"
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build:tsc": "tsc -p tsconfig.json",
+    "build:umd": "node scripts/build-umd.mjs",
+    "build": "npm run build:tsc && npm run build:umd",
     "prepare": "npm run build",
     "test": "node --test --import tsx tests/**/*.test.ts",
     "size": "node scripts/size.mjs"
