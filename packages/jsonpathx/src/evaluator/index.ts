@@ -16,7 +16,7 @@ export type CallbackFunction = (
   payload: ResultPayload
 ) => unknown | void;
 
-export type FilterMode = "jsonpath" | "xpath";
+export type FilterMode = "jsonpath" | "xpath" | "rfc";
 
 export type QueryOptions = EvalOptions & {
   wrap?: boolean;

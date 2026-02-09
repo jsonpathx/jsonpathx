@@ -322,24 +322,22 @@ await JSONPath.query('$.flags[?(@[boolean])]', data);
 
 ### RFC 9535 Test Suite
 
-jsonpathx includes comprehensive tests for RFC 9535 compliance.
+jsonpathx includes comprehensive tests for RFC 9535 compliance, including the
+official JSONPath Compliance Test Suite (CTS).
 
 **Test Organization**:
 ```
-tests/rfc9535/
-├── root.test.ts
-├── name-selector.test.ts
-├── wildcard-selector.test.ts
-├── index-selector.test.ts
-├── array-slice.test.ts
-├── descendant-selector.test.ts
-├── filter-selector.test.ts
-├── comparison-operators.test.ts
-├── logical-operators.test.ts
-├── existence-tests.test.ts
-├── standard-functions.test.ts
-└── type-selectors.test.ts
+tests/compliance/cts.test.ts
+vendor/jsonpath-compliance-test-suite/cts.json
 ```
+
+### Running the CTS
+
+```bash
+CTS_TRACE=1 CTS_TRACE_EVERY=200 npm --prefix packages/jsonpathx test
+```
+
+`CTS_TRACE` prints periodic progress; `CTS_TRACE_EVERY` controls the interval.
 
 ### Example Tests
 

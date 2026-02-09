@@ -17,6 +17,7 @@ import { applySelector } from "./selectors.js";
 import { matchesTypeSelector } from "./types.js";
 import { evaluateExpression } from "../eval/index.js";
 import type { EvalOptions } from "./evaluate.js";
+import { evaluateFilterExpression, parseFilterExpression } from "../filter/rfc.js";
 
 export type CompiledPath = (json: unknown, options: EvalOptions) => EvalContext[];
 
@@ -134,8 +135,29 @@ function buildRecursiveRunner(segment: RecursiveNode): SegmentRunner {
 }
 
 function buildFilterRunner(segment: FilterNode): SegmentRunner {
+  let rfcExpression: ReturnType<typeof parseFilterExpression> | null = null;
   return (contexts, options, root) =>
     contexts.flatMap((context) => {
+      if (options.filterMode === "rfc") {
+        if (!rfcExpression) {
+          rfcExpression = parseFilterExpression(segment.expression);
+        }
+        const targets = expandFilterTargets(context);
+        const matches: EvalContext[] = [];
+        for (const target of targets) {
+          try {
+            if (evaluateFilterExpression(rfcExpression, target, root, options)) {
+              matches.push(target);
+            }
+          } catch (error) {
+            if (options.ignoreEvalErrors) {
+              continue;
+            }
+            throw error;
+          }
+        }
+        return matches;
+      }
       if (options.filterMode === "xpath") {
         try {
           return evaluateExpression(segment.expression, context, root, options) ? [context] : [];
@@ -256,5 +278,5 @@ function expandFilterTargets(context: EvalContext): EvalContext[] {
       payloadType: "value"
     }));
   }
-  return [context];
+  return [];
 }

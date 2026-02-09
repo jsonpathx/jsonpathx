@@ -14,11 +14,12 @@ import { collectDescendants } from "./recursive.js";
 import { applySelector } from "./selectors.js";
 import { matchesTypeSelector } from "./types.js";
 import { evaluateExpression, type EvalPolicy } from "../eval/index.js";
+import { evaluateFilterExpression, parseFilterExpression } from "../filter/rfc.js";
 
 export type EvalOptions = EvalPolicy & {
   parent?: unknown;
   parentProperty?: PathKey;
-  filterMode?: "jsonpath" | "xpath";
+  filterMode?: "jsonpath" | "xpath" | "rfc";
 };
 
 export function evaluatePath(ast: PathNode, json: unknown, options: EvalOptions = {}): EvalContext[] {
@@ -82,6 +83,24 @@ function applyFilter(
   root: unknown
 ): EvalContext[] {
   return contexts.flatMap((context) => {
+    if (options.filterMode === "rfc") {
+      const expr = parseFilterExpression(segment.expression);
+      const targets = expandFilterTargets(context);
+      const matches: EvalContext[] = [];
+      for (const target of targets) {
+        try {
+          if (evaluateFilterExpression(expr, target, root, options)) {
+            matches.push(target);
+          }
+        } catch (error) {
+          if (options.ignoreEvalErrors) {
+            continue;
+          }
+          throw error;
+        }
+      }
+      return matches;
+    }
     if (options.filterMode === "xpath") {
       try {
         return evaluateExpression(segment.expression, context, root, options) ? [context] : [];
@@ -202,5 +221,5 @@ function expandFilterTargets(context: EvalContext): EvalContext[] {
       parentProperty: key
     }));
   }
-  return [context];
+  return [];
 }

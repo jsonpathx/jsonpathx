@@ -1,1 +1,0 @@
-export type { PathNode, PathRootNode, UnionPathNode, SegmentNode, RootNode, CurrentNode, ChildNode, RecursiveNode, ParentNode, PropertyNameNode, TypeSelectorNode, FilterNode, ScriptNode, SelectorNode, UnionItemNode, WildcardSelector, IdentifierSelector, IndexSelector, SliceSelector, UnionSelector } from "./nodes.js";

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.5 - 2026-02-09
+
+### Added
+- RFC 9535 CTS coverage wired to the official compliance test suite.
+- Expanded benchmark coverage with wide objects, large arrays, and Unicode-heavy datasets.
+- New benchmark queries for RFC filters, reverse slices, and heavier eval paths.
+
+### Fixed
+- RFC filter semantics around negative-step slices, whitespace, and scalar filter targets.
+- `match`/`search` regex behavior to match RFC dot semantics and Unicode classes.
+- Parser snapshot stability by normalizing short filter expressions.
+
 ## 0.1.4 - 2026-02-08
 
 ### Added

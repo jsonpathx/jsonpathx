@@ -15,6 +15,9 @@ import { isIdentifierStart, readIdentifier } from "./tokenizer.js";
 import { normalizePath } from "./normalize.js";
 
 export function parsePath(source: string): PathNode {
+  if (source.trim() !== source) {
+    throw new ParseError("Unexpected leading/trailing whitespace", 0);
+  }
   const parts = normalizePath(source);
   if (parts.length > 1) {
     const paths = parts.map((part) => parseSinglePath(part));
@@ -116,9 +119,12 @@ function parseSinglePath(source: string): PathRootNode {
 
 function readRecursiveSelector(source: string, startIndex: number): { node: RecursiveNode; nextIndex: number } {
   if (startIndex >= source.length) {
-    return { node: { type: "Recursive" } as RecursiveNode, nextIndex: startIndex };
+    throw new ParseError("Expected selector after recursive descent", startIndex);
   }
   const char = source[startIndex];
+  if (char.trim() === "") {
+    throw new ParseError("Unexpected whitespace after recursive descent", startIndex);
+  }
   if (char === "[") {
     const result = parseBracketExpression(source, startIndex);
     if (result.node.type === "Child") {

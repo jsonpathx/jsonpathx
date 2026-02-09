@@ -4,13 +4,16 @@ jsonpathx ships with a performance-focused JS engine and a benchmark suite that 
 
 ## Benchmarks
 
-Run the suite from `benchmarks/`:
+Run the suite from `bench/`:
 
 ```bash
-cd benchmarks
+cd bench
 npm install
 npm run bench
 ```
+
+The suite covers small reference data, synthetic datasets, deep trees, wide objects,
+large arrays, and Unicode-heavy keys to expose different engine hot paths.
 
 ## Performance Tips
 

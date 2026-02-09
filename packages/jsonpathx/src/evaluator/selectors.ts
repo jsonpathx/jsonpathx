@@ -41,7 +41,7 @@ function selectWildcard(context: EvalContext, _selector: WildcardSelector): Eval
 
 function selectIdentifier(context: EvalContext, selector: IdentifierSelector): EvalContext[] {
   const { value } = context;
-  if (!value || typeof value !== "object") {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
     return [];
   }
   const record = value as Record<string, unknown>;
@@ -73,8 +73,21 @@ function selectSlice(context: EvalContext, selector: SliceSelector): EvalContext
   if (step === 0) {
     return [];
   }
-  const start = normalizeIndex(selector.start ?? (step > 0 ? 0 : length - 1), length);
-  const end = normalizeIndex(selector.end ?? (step > 0 ? length : -1), length);
+  let start = selector.start ?? (step > 0 ? 0 : length - 1);
+  let end = selector.end ?? (step > 0 ? length : -1);
+  if (step > 0) {
+    start = normalizeIndex(start, length);
+    end = normalizeIndex(end, length);
+    start = clamp(start, 0, length);
+    end = clamp(end, 0, length);
+  } else {
+    start = normalizeIndex(start, length);
+    if (selector.end != null) {
+      end = normalizeIndex(end, length);
+    }
+    start = clamp(start, -1, length - 1);
+    end = clamp(end, -1, length - 1);
+  }
   const results: EvalContext[] = [];
   if (step > 0) {
     for (let i = start; i < end; i += step) {
@@ -99,7 +112,20 @@ function normalizeIndex(index: number, length: number) {
   return index;
 }
 
+function clamp(value: number, min: number, max: number) {
+  if (value < min) {
+    return min;
+  }
+  if (value > max) {
+    return max;
+  }
+  return value;
+}
+
 function selectUnionItem(context: EvalContext, item: UnionItemNode): EvalContext[] {
+  if (item.type === "WildcardSelector") {
+    return selectWildcard(context, item);
+  }
   if (item.type === "IdentifierSelector") {
     return selectIdentifier(context, item);
   }

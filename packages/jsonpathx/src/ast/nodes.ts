@@ -69,7 +69,7 @@ export type SelectorNode =
   | SliceSelector
   | UnionSelector;
 
-export type UnionItemNode = IdentifierSelector | IndexSelector | SliceSelector;
+export type UnionItemNode = IdentifierSelector | IndexSelector | SliceSelector | WildcardSelector;
 
 export type WildcardSelector = {
   type: "WildcardSelector";

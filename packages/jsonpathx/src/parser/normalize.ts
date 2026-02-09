@@ -158,5 +158,63 @@ function expandGrouping(path: string): string {
 
 export function normalizePath(path: string): string[] {
   const expanded = expandGrouping(path);
-  return splitTopLevel(expanded, "|");
+  const filterExpanded = expandFilterUnion(expanded);
+  return splitTopLevel(filterExpanded, "|");
+}
+
+function expandFilterUnion(path: string): string {
+  let i = 0;
+  while (i < path.length) {
+    if (path[i] === "[") {
+      const { content, nextIndex } = readBracketContent(path, i + 1);
+      const items = splitTopLevel(content, ",");
+      if (items.length > 1 && items.some((item) => item.trim().startsWith("?"))) {
+        const prefix = path.slice(0, i);
+        const suffix = path.slice(nextIndex);
+        return items
+          .map((item) => expandFilterUnion(`${prefix}[${item.trim()}]${suffix}`))
+          .join(" | ");
+      }
+      i = nextIndex;
+      continue;
+    }
+    i += 1;
+  }
+  return path;
+}
+
+function readBracketContent(path: string, startIndex: number): { content: string; nextIndex: number } {
+  let index = startIndex;
+  let quote: string | null = null;
+  let escaped = false;
+  while (index < path.length) {
+    const ch = path[index];
+    if (escaped) {
+      escaped = false;
+      index += 1;
+      continue;
+    }
+    if (ch === "\\") {
+      escaped = true;
+      index += 1;
+      continue;
+    }
+    if (quote) {
+      if (ch === quote) {
+        quote = null;
+      }
+      index += 1;
+      continue;
+    }
+    if (ch === "'" || ch === "\"") {
+      quote = ch;
+      index += 1;
+      continue;
+    }
+    if (ch === "]") {
+      return { content: path.slice(startIndex, index).trim(), nextIndex: index + 1 };
+    }
+    index += 1;
+  }
+  return { content: path.slice(startIndex).trim(), nextIndex: path.length };
 }
