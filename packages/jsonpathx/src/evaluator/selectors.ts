@@ -20,7 +20,7 @@ export function applySelector(context: EvalContext, selector: SelectorNode): Eva
     case "SliceSelector":
       return selectSlice(context, selector);
     case "UnionSelector":
-      return selector.items.flatMap((item) => selectUnionItem(context, item));
+      return selectUnion(context, selector.items);
     default:
       return [];
   }
@@ -29,12 +29,21 @@ export function applySelector(context: EvalContext, selector: SelectorNode): Eva
 function selectWildcard(context: EvalContext, _selector: WildcardSelector): EvalContext[] {
   const { value } = context;
   if (Array.isArray(value)) {
-    return value.map((entry, index) => createChildContext(context, index, entry));
+    const results = new Array<EvalContext>(value.length);
+    for (let i = 0; i < value.length; i += 1) {
+      results[i] = createChildContext(context, i, value[i]);
+    }
+    return results;
   }
   if (value && typeof value === "object") {
-    return Object.keys(value as Record<string, unknown>).map((key) =>
-      createChildContext(context, key, (value as Record<string, unknown>)[key])
-    );
+    const record = value as Record<string, unknown>;
+    const results: EvalContext[] = [];
+    for (const key in record) {
+      if (Object.prototype.hasOwnProperty.call(record, key)) {
+        results.push(createChildContext(context, key, record[key]));
+      }
+    }
+    return results;
   }
   return [];
 }
@@ -88,21 +97,28 @@ function selectSlice(context: EvalContext, selector: SliceSelector): EvalContext
     start = clamp(start, -1, length - 1);
     end = clamp(end, -1, length - 1);
   }
-  const results: EvalContext[] = [];
   if (step > 0) {
+    const count = start < end ? Math.ceil((end - start) / step) : 0;
+    const results = new Array<EvalContext>(count);
+    let pos = 0;
     for (let i = start; i < end; i += step) {
-      if (i >= 0 && i < length) {
-        results.push(createChildContext(context, i, value[i]));
-      }
+      results[pos] = createChildContext(context, i, value[i]);
+      pos += 1;
     }
+    return results;
   } else {
-    for (let i = start; i > end; i += step) {
-      if (i >= 0 && i < length) {
-        results.push(createChildContext(context, i, value[i]));
-      }
+    if (start < 0) {
+      return [];
     }
+    const count = start > end ? Math.ceil((start - end) / -step) : 0;
+    const results = new Array<EvalContext>(count);
+    let pos = 0;
+    for (let i = start; i > end; i += step) {
+      results[pos] = createChildContext(context, i, value[i]);
+      pos += 1;
+    }
+    return results;
   }
-  return results;
 }
 
 function normalizeIndex(index: number, length: number) {
@@ -133,4 +149,15 @@ function selectUnionItem(context: EvalContext, item: UnionItemNode): EvalContext
     return selectIndex(context, item);
   }
   return selectSlice(context, item);
+}
+
+function selectUnion(context: EvalContext, items: UnionItemNode[]): EvalContext[] {
+  const results: EvalContext[] = [];
+  for (const item of items) {
+    const selected = selectUnionItem(context, item);
+    for (const entry of selected) {
+      results.push(entry);
+    }
+  }
+  return results;
 }

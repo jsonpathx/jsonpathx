@@ -120,11 +120,52 @@ function attachParentChains(
 }
 
 export function JSONPath(options: JSONPathOptions): unknown {
+  const resultType = options.resultType ?? "value";
   const compiled = getCompiled(options.path);
+  if (resultType === "value" && !options.callback) {
+    const fastValues =
+      compiled.runValues && (options.flatten === undefined || options.flatten === false)
+        ? compiled.runValues(options.json, options)
+        : null;
+    if (fastValues) {
+      let values = fastValues;
+      if (options.flatten !== undefined && options.flatten !== false && Array.isArray(values)) {
+        const depth = options.flatten === true ? 1 : options.flatten;
+        values = flattenArray(values, depth);
+      }
+      if (options.wrap === false) {
+        if (values.length === 0) {
+          return undefined;
+        }
+        if (values.length === 1) {
+          return values[0];
+        }
+      }
+      return values;
+    }
+  }
+
   const contexts = compiled(options.json, options);
   if (options.resultType === "parentChain") {
     attachParentChains(contexts, options.json, options.maxParentChainDepth);
   }
+  if (resultType === "value" && !options.callback) {
+    let values = contexts.map((context) => context.value);
+    if (options.flatten !== undefined && options.flatten !== false && Array.isArray(values)) {
+      const depth = options.flatten === true ? 1 : options.flatten;
+      values = flattenArray(values, depth);
+    }
+    if (options.wrap === false) {
+      if (values.length === 0) {
+        return undefined;
+      }
+      if (values.length === 1) {
+        return values[0];
+      }
+    }
+    return values;
+  }
+
   const payloads = contexts.map((context) => buildPayload(context));
 
   if (options.callback) {
@@ -137,7 +178,6 @@ export function JSONPath(options: JSONPathOptions): unknown {
     });
   }
 
-  const resultType = options.resultType ?? "value";
   const values = formatPayloads(payloads, resultType, options.flatten);
   if (options.wrap === false) {
     if (values.length === 0) {
@@ -148,4 +188,19 @@ export function JSONPath(options: JSONPathOptions): unknown {
     }
   }
   return values;
+}
+
+function flattenArray(values: unknown[], depth: number): unknown[] {
+  if (depth <= 0) {
+    return values;
+  }
+  const flattened: unknown[] = [];
+  for (const value of values) {
+    if (Array.isArray(value)) {
+      flattened.push(...flattenArray(value, depth - 1));
+    } else {
+      flattened.push(value);
+    }
+  }
+  return flattened;
 }

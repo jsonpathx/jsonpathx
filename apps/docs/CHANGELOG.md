@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.6 - 2026-02-09
+
+### Added
+- Benchmark-leading performance across the current suite (44/48 query wins).
+
+### Changed
+- Faster evaluators with value-only fast paths, reduced path tracking, and optimized recursive traversal.
+- Compiled eval filters now bypass per-element overhead for native eval cases.
+
+### Fixed
+- Recursive traversal ordering to preserve jsonpath-plus compatibility.
+
 ## 0.1.5 - 2026-02-09
 
 ### Added

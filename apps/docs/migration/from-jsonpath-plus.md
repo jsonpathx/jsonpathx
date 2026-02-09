@@ -423,7 +423,7 @@ const parents = await JSONPath.parents('$.books[*].title', library);
 
 ## Performance Comparison
 
-jsonpathx is typically **2-5x faster** than jsonpath-plus:
+jsonpathx leads the current benchmark suite (44/48 queries), though results vary by query and dataset. The table below is illustrative; use the benchmarks page for current numbers.
 
 | Operation | jsonpath-plus | jsonpathx | Speedup |
 |-----------|---------------|-----------|---------|

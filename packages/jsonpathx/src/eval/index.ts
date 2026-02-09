@@ -28,6 +28,12 @@ const builtins = new Set([
 ]);
 
 const forbiddenProperties = new Set(["constructor", "__proto__", "prototype"]);
+const evalCache = new Map<string, Function>();
+const normalizeCache = new Map<string, string>();
+
+export function normalizeEvalExpression(expression: string): string {
+  return normalizeExpression(expression);
+}
 
 export function evaluateExpression(
   expression: string,
@@ -41,33 +47,54 @@ export function evaluateExpression(
   if (policy.eval !== "native" && policy.eval !== "safe") {
     throw new Error("Evaluation is disabled (eval: false)");
   }
-  const normalized = normalizeExpression(expression);
-  const sandbox = policy.sandbox ?? {};
-  if (policy.eval === "safe") {
-    enforceSandboxOnly(normalized, sandbox);
+  const cachedNormalized = normalizeCache.get(expression);
+  const normalized = cachedNormalized ?? normalizeExpression(expression);
+  if (!cachedNormalized) {
+    normalizeCache.set(expression, normalized);
   }
-  const argNames = [
-    "value",
-    "parent",
-    "property",
-    "parentProperty",
-    "root",
-    "path",
-    ...Object.keys(sandbox)
-  ];
-  const fn = new Function(
-    ...argNames,
-    `"use strict"; return (${normalized});`
-  );
-  const argValues = [
-    context.value,
-    context.parent,
-    context.parentProperty,
-    context.parentProperty,
-    root,
-    context.path,
-    ...Object.values(sandbox)
-  ];
+  const sandbox = policy.sandbox ?? {};
+  const sandboxKeys = Object.keys(sandbox);
+  const cacheKey = `${policy.eval}|${normalized}|${sandboxKeys.join(",")}`;
+  let fn = evalCache.get(cacheKey);
+  if (!fn) {
+    if (policy.eval === "safe") {
+      enforceSandboxOnly(normalized, sandbox);
+    }
+    const argNames = [
+      "value",
+      "parent",
+      "property",
+      "parentProperty",
+      "root",
+      "path",
+      ...sandboxKeys
+    ];
+    fn = new Function(
+      ...argNames,
+      `"use strict"; return (${normalized});`
+    );
+    evalCache.set(cacheKey, fn);
+  }
+  if (sandboxKeys.length === 0) {
+    return fn(
+      context.value,
+      context.parent,
+      context.parentProperty,
+      context.parentProperty,
+      root,
+      context.path
+    );
+  }
+  const argValues = new Array(sandboxKeys.length + 6);
+  argValues[0] = context.value;
+  argValues[1] = context.parent;
+  argValues[2] = context.parentProperty;
+  argValues[3] = context.parentProperty;
+  argValues[4] = root;
+  argValues[5] = context.path;
+  for (let i = 0; i < sandboxKeys.length; i += 1) {
+    argValues[i + 6] = sandbox[sandboxKeys[i] as string];
+  }
   return fn(...argValues);
 }
 

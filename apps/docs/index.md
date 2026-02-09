@@ -88,7 +88,7 @@ npm install @jsonpathx/jsonpathx
 
 ### Performance
 
-jsonpathx tracks performance against jsonpath-plus and jsonpath across real workloads. Results vary by query; see the benchmarks page for current numbers.
+jsonpathx tracks performance against jsonpath-plus and jsonpath across real workloads. In the current benchmark suite, jsonpathx wins the majority of queries (44/48). Results still vary by query; see the benchmarks page for current numbers.
 
 ### Modern TypeScript
 

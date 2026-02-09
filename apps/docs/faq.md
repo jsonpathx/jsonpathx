@@ -107,7 +107,7 @@ await JSONPath.query('$.users[?(@.isValid())]', data, { sandbox });
 
 ### Is it really faster?
 
-Performance varies by query. See the benchmarks page and performance guide for current results.
+Performance varies by query, but the current benchmark suite shows jsonpathx leading most queries (44/48). See the benchmarks page and performance guide for current results.
 
 ### When should I enable caching?
 

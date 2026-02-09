@@ -9,8 +9,8 @@ import type {
   SegmentNode,
   TypeSelectorNode
 } from "../ast/nodes.js";
-import { createRootContext, type EvalContext, type PathKey } from "./context.js";
-import { collectDescendants } from "./recursive.js";
+import { createChildContext, createRootContext, type EvalContext, type PathKey } from "./context.js";
+import { collectDescendants, forEachDescendant } from "./recursive.js";
 import { applySelector } from "./selectors.js";
 import { matchesTypeSelector } from "./types.js";
 import { evaluateExpression, type EvalPolicy } from "../eval/index.js";
@@ -27,9 +27,12 @@ export function evaluatePath(ast: PathNode, json: unknown, options: EvalOptions 
     return ast.paths.flatMap((path) => evaluatePath(path, json, options));
   }
   const root = json;
-  let contexts: EvalContext[] = [createRootContext(json, options.parent, options.parentProperty)];
+  const trackPath = shouldTrackPath(options, requiresPathTracking(ast));
+  let contexts: EvalContext[] = [
+    createRootContext(json, options.parent, options.parentProperty, trackPath)
+  ];
   for (const segment of ast.segments) {
-    contexts = applySegment(segment, contexts, options, root);
+    contexts = applySegment(segment, contexts, options, root, trackPath);
     if (contexts.length === 0) {
       break;
     }
@@ -41,11 +44,12 @@ function applySegment(
   segment: SegmentNode,
   contexts: EvalContext[],
   options: EvalOptions,
-  root: unknown
+  root: unknown,
+  trackPath: boolean
 ): EvalContext[] {
   switch (segment.type) {
     case "Root":
-      return contexts.map(() => createRootContext(root));
+      return contexts.map(() => createRootContext(root, undefined, undefined, trackPath));
     case "Current":
       return contexts;
     case "Child":
@@ -67,13 +71,55 @@ function applySegment(
   }
 }
 
-function applyRecursive(segment: RecursiveNode, contexts: EvalContext[]): EvalContext[] {
-  const descendants = contexts.flatMap((context) => collectDescendants(context));
-  const selector = segment.selector;
-  if (!selector) {
-    return descendants;
+function shouldTrackPath(options: EvalOptions, requiresPath: boolean): boolean {
+  const opts = options as EvalOptions & {
+    resultType?: string;
+    callback?: unknown;
+    flatten?: boolean | number;
+  };
+  if (opts.callback) {
+    return true;
   }
-  return descendants.flatMap((context) => applySelector(context, selector));
+  if (opts.resultType && opts.resultType !== "value") {
+    return true;
+  }
+  if (opts.flatten !== undefined && opts.flatten !== false) {
+    return true;
+  }
+  if (options.eval === "native" || options.eval === "safe") {
+    return requiresPath;
+  }
+  return false;
+}
+
+function requiresPathTracking(ast: PathNode): boolean {
+  if (ast.type === "UnionPath") {
+    return ast.paths.some((path) => requiresPathTracking(path));
+  }
+  return ast.segments.some((segment) => {
+    if (segment.type === "Filter" || segment.type === "Script") {
+      return segment.expression.includes("@path");
+    }
+    return false;
+  });
+}
+
+function applyRecursive(segment: RecursiveNode, contexts: EvalContext[]): EvalContext[] {
+  const selector = segment.selector;
+  const results: EvalContext[] = [];
+  for (const context of contexts) {
+    forEachDescendant(context, (descendant) => {
+      if (!selector) {
+        results.push(descendant);
+        return;
+      }
+      const selected = applySelector(descendant, selector);
+      for (const entry of selected) {
+        results.push(entry);
+      }
+    });
+  }
+  return results;
 }
 
 function applyFilter(
@@ -82,6 +128,10 @@ function applyFilter(
   options: EvalOptions,
   root: unknown
 ): EvalContext[] {
+  const canEvalFast =
+    (options.eval === "native" || options.eval === "safe") &&
+    !options.preventEval &&
+    !segment.expression.includes("@path");
   return contexts.flatMap((context) => {
     if (options.filterMode === "rfc") {
       const expr = parseFilterExpression(segment.expression);
@@ -110,6 +160,65 @@ function applyFilter(
         }
         throw error;
       }
+    }
+    if (canEvalFast) {
+      const value = context.value;
+      const matches: EvalContext[] = [];
+      if (Array.isArray(value)) {
+        const temp: EvalContext = {
+          value: undefined,
+          path: context.path,
+          parent: context.value,
+          parentProperty: 0,
+          payloadType: "value",
+          trackPath: context.trackPath
+        };
+        for (let i = 0; i < value.length; i += 1) {
+          temp.value = value[i];
+          temp.parentProperty = i;
+          try {
+            if (evaluateExpression(segment.expression, temp, root, options)) {
+              matches.push(createChildContext(context, i, value[i]));
+            }
+          } catch (error) {
+            if (options.ignoreEvalErrors) {
+              continue;
+            }
+            throw error;
+          }
+        }
+        return matches;
+      }
+      if (value && typeof value === "object") {
+        const record = value as Record<string, unknown>;
+        const temp: EvalContext = {
+          value: undefined,
+          path: context.path,
+          parent: context.value,
+          parentProperty: undefined,
+          payloadType: "value",
+          trackPath: context.trackPath
+        };
+        for (const key in record) {
+          if (!Object.prototype.hasOwnProperty.call(record, key)) {
+            continue;
+          }
+          temp.value = record[key];
+          temp.parentProperty = key;
+          try {
+            if (evaluateExpression(segment.expression, temp, root, options)) {
+              matches.push(createChildContext(context, key, record[key]));
+            }
+          } catch (error) {
+            if (options.ignoreEvalErrors) {
+              continue;
+            }
+            throw error;
+          }
+        }
+        return matches;
+      }
+      return [];
     }
     const targets = expandFilterTargets(context);
     const matches: EvalContext[] = [];

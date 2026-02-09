@@ -30,6 +30,7 @@ const NOTHING: ValueResult = { kind: "nothing" };
 
 const comparisonOperators = new Set(["==", "!=", "<", "<=", ">", ">="]);
 const logicalOperators = new Set(["&&", "||"]);
+const regexCache = new Map<string, RegExp | null>();
 
 const functionsRequiringComparison = new Set(["length", "count", "value"]);
 const filterExpressionCache = new WeakMap<FilterNode, FilterExpression>();
@@ -110,6 +111,10 @@ function evaluatePathExpression(
   options: EvalOptions
 ): ValueResult {
   const base = expr.scope === "root" ? root : context.value;
+  const fast = resolveSimplePathValue(expr.ast, base);
+  if (fast) {
+    return fast;
+  }
   const evalOptions: EvalOptions = {
     ...options,
     filterMode: "rfc",
@@ -125,6 +130,53 @@ function evaluatePathExpression(
   }
   const values = contexts.map((item) => item.value);
   return { kind: "list", values, fromPath: true };
+}
+
+function resolveSimplePathValue(ast: PathNode, base: unknown): ValueResult | null {
+  if (ast.type === "UnionPath") {
+    return null;
+  }
+  let current: unknown = base;
+  for (const segment of ast.segments) {
+    switch (segment.type) {
+      case "Root":
+      case "Current":
+        continue;
+      case "Child":
+        switch (segment.selector.type) {
+          case "IdentifierSelector": {
+            if (!current || typeof current !== "object" || Array.isArray(current)) {
+              return NOTHING;
+            }
+            const record = current as Record<string, unknown>;
+            if (!Object.prototype.hasOwnProperty.call(record, segment.selector.name)) {
+              return NOTHING;
+            }
+            current = record[segment.selector.name];
+            continue;
+          }
+          case "IndexSelector": {
+            if (!Array.isArray(current)) {
+              return NOTHING;
+            }
+            const index =
+              segment.selector.index < 0
+                ? current.length + segment.selector.index
+                : segment.selector.index;
+            if (index < 0 || index >= current.length) {
+              return NOTHING;
+            }
+            current = current[index];
+            continue;
+          }
+          default:
+            return null;
+        }
+      default:
+        return null;
+    }
+  }
+  return { kind: "scalar", value: current, fromPath: true };
 }
 
 function evaluateFunctionExpression(
@@ -209,13 +261,12 @@ function evaluateMatch(left: ValueResult, right: ValueResult): boolean {
   if (typeof source !== "string" || typeof pattern !== "string") {
     return false;
   }
-  try {
-    const regex = new RegExp(rewriteDotPattern(pattern), "u");
-    const match = regex.exec(source);
-    return match !== null && match[0] === source;
-  } catch {
+  const regex = getCachedRegex(pattern);
+  if (!regex) {
     return false;
   }
+  const match = regex.exec(source);
+  return match !== null && match[0] === source;
 }
 
 function evaluateSearch(left: ValueResult, right: ValueResult): boolean {
@@ -224,12 +275,11 @@ function evaluateSearch(left: ValueResult, right: ValueResult): boolean {
   if (typeof source !== "string" || typeof pattern !== "string") {
     return false;
   }
-  try {
-    const regex = new RegExp(rewriteDotPattern(pattern), "u");
-    return regex.test(source);
-  } catch {
+  const regex = getCachedRegex(pattern);
+  if (!regex) {
     return false;
   }
+  return regex.test(source);
 }
 
 function rewriteDotPattern(pattern: string): string {
@@ -265,6 +315,20 @@ function rewriteDotPattern(pattern: string): string {
     result += char;
   }
   return result;
+}
+
+function getCachedRegex(pattern: string): RegExp | null {
+  if (regexCache.has(pattern)) {
+    return regexCache.get(pattern) ?? null;
+  }
+  try {
+    const compiled = new RegExp(rewriteDotPattern(pattern), "u");
+    regexCache.set(pattern, compiled);
+    return compiled;
+  } catch {
+    regexCache.set(pattern, null);
+    return null;
+  }
 }
 
 function resolveScalar(value: ValueResult): unknown {

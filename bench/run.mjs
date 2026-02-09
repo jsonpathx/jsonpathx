@@ -109,8 +109,18 @@ const queries = [
   { name: "parent", path: "$..book[?(@.price > 10)]^", eval: true, datasets: ["fixture"] },
   { name: "property", path: "$.store.*~", datasets: ["fixture"] },
   { name: "type-selector", path: "$..*@number()", datasets: ["fixture"] },
-  { name: "rfc-length", path: "$..book[?length(@.author) > 3]", datasets: ["fixture"] },
-  { name: "rfc-match", path: "$..book[?match(@.author, '^[A-Z]')]", datasets: ["fixture"] },
+  {
+    name: "rfc-length",
+    path: "$..book[?length(@.author) > 3]",
+    filterMode: "rfc",
+    datasets: ["fixture"]
+  },
+  {
+    name: "rfc-match",
+    path: "$..book[?match(@.author, '^[A-Z]')]",
+    filterMode: "rfc",
+    datasets: ["fixture"]
+  },
   { name: "synthetic-items", path: "$.items[*].id", datasets: ["synthetic"] },
   {
     name: "synthetic-filter",
@@ -241,7 +251,8 @@ for (const dataset of datasets) {
         json: dataset.json,
         resultType: "value",
         wrap: true,
-        eval: query.eval ? "native" : false
+        eval: query.eval ? "native" : false,
+        filterMode: query.filterMode
       };
       const runner = () => engine.fn(options);
       const outcome = safeRun(runner, dataset.targetMs);

@@ -24,7 +24,7 @@ Overview of breaking changes between versions:
 
 ### Performance
 
-jsonpathx is **2-5x faster** than jsonpath-plus:
+jsonpathx wins the majority of queries in the current benchmark suite (44/48), with results varying by query:
 
 ```typescript
 // Same query, much faster
