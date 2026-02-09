@@ -328,7 +328,7 @@ official JSONPath Compliance Test Suite (CTS).
 **Test Organization**:
 ```
 tests/compliance/cts.test.ts
-vendor/jsonpath-compliance-test-suite/cts.json
+bench/cts.json
 ```
 
 ### Running the CTS

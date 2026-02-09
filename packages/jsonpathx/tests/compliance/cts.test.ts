@@ -24,7 +24,7 @@ type CtsFile = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "../../../..");
-const ctsPath = path.join(rootDir, "vendor", "jsonpath-compliance-test-suite", "cts.json");
+const ctsPath = path.join(rootDir, "bench", "cts.json");
 
 function matchesAny(actual: unknown[], expected: unknown[][]): boolean {
   return expected.some((candidate) => isDeepStrictEqual(actual, candidate));
