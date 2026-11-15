@@ -38,3 +38,9 @@ lerna-debug.log*
 # Testing
 coverage/
 .nyc_output/
+
+# local-only agent files
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.remember/
