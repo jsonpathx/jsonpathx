@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24, 26]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack (dry run)
+        working-directory: packages/jsonpathx
+        run: |
+          npm pack --dry-run --json > "$RUNNER_TEMP/pack.json"
+          node -e '
+            const [pkg] = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+            const files = new Set(pkg.files.map((f) => f.path));
+            const required = ["package.json", "LICENSE", "README.md", "dist/index.js", "dist/index.d.ts", "dist/jsonpathx.umd.js", "dist/jsonpathx.umd.min.js"];
+            const missing = required.filter((f) => !files.has(f));
+            console.log(`${pkg.name}@${pkg.version}: ${pkg.entryCount} files, ${pkg.size} bytes`);
+            if (missing.length) { console.error(`Missing from the tarball: ${missing.join(", ")}`); process.exit(1); }
+          ' "$RUNNER_TEMP/pack.json"
+
+  ci:
+    name: CI
+    if: always()
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the matrix result
+        run: |
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "Test matrix result: ${{ needs.test.result }}"
+            exit 1
+          fi
