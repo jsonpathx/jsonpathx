@@ -64,6 +64,7 @@
   "devDependencies": {
     "@types/node": "^20.19.32",
     "esbuild": "^0.21.5",
+    "jsonpath-plus": "^10.0.0",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"
   }
