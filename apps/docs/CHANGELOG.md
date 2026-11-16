@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.7 - 2026-11-16
+
+### Changed
+- `repository` metadata now includes `directory: packages/jsonpathx`, so npm links to the package folder.
+- `sideEffects` marks only the UMD bundles (`dist/*.umd*.js`) as side-effectful, so bundlers can tree-shake the ESM entry while keeping `import "@jsonpathx/jsonpathx/umd"`.
+- Published from GitHub Actions with npm trusted publishing, so the release carries npm provenance.
+
+### Fixed
+- `LICENSE` is now included in the published package.
+- README links on npm now point to the docs site and GitHub instead of repository-relative paths, and the browser (UMD/CDN) snippet is back.
+
 ## 0.1.6 - 2026-02-09
 
 ### Added
