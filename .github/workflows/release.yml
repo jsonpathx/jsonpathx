@@ -7,10 +7,12 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: npm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,8 +20,29 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
+
+      - name: Check npm version
+        run: |
+          node -e '
+            const v = process.argv[1].split(".").map(Number);
+            const min = [11, 5, 1];
+            const ok = v[0] !== min[0] ? v[0] > min[0] : v[1] !== min[1] ? v[1] > min[1] : v[2] >= min[2];
+            if (!ok) { console.error(`npm ${process.argv[1]} is too old: trusted publishing needs npm >= 11.5.1`); process.exit(1); }
+            console.log(`npm ${process.argv[1]}`);
+          ' "$(npm --version)"
+
+      - name: Check tag matches version
+        env:
+          TAG: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          VERSION="$(node -p 'require("./packages/jsonpathx/package.json").version')"
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::Tag '$TAG' does not match packages/jsonpathx version $VERSION (expected tag v$VERSION)"
+            exit 1
+          fi
+          echo "Tag $TAG matches version $VERSION"
 
       - name: Install
         run: npm ci
@@ -35,5 +58,3 @@ jobs:
 
       - name: Publish
         run: npm publish --workspace packages/jsonpathx --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
