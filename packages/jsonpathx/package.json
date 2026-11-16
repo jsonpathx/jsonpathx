@@ -8,6 +8,7 @@
   "types": "./dist/index.d.ts",
   "unpkg": "./dist/jsonpathx.umd.min.js",
   "jsdelivr": "./dist/jsonpathx.umd.min.js",
+  "sideEffects": false,
   "files": [
     "dist",
     "README.md",
@@ -40,7 +41,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jsonpathx/jsonpathx.git"
+    "url": "git+https://github.com/jsonpathx/jsonpathx.git",
+    "directory": "packages/jsonpathx"
   },
   "keywords": [
     "jsonpath",
