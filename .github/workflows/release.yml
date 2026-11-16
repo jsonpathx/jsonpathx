@@ -34,15 +34,16 @@ jobs:
           ' "$(npm --version)"
 
       - name: Check tag matches version
+        if: github.event_name == 'release'
         env:
-          TAG: ${{ github.event.release.tag_name || github.ref_name }}
+          TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION="$(node -p 'require("./packages/jsonpathx/package.json").version')"
-          if [ "$TAG" != "v$VERSION" ]; then
-            echo "::error::Tag '$TAG' does not match packages/jsonpathx version $VERSION (expected tag v$VERSION)"
+          if [ "$VERSION" != "${TAG#v}" ]; then
+            echo "::error::Release tag '$TAG' does not match packages/jsonpathx version $VERSION (expected tag v$VERSION)"
             exit 1
           fi
-          echo "Tag $TAG matches version $VERSION"
+          echo "Release tag $TAG matches version $VERSION"
 
       - name: Install
         run: npm ci
