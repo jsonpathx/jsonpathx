@@ -60,10 +60,10 @@
     "url": "https://github.com/jsonpathx/jsonpathx/issues"
   },
   "devDependencies": {
-    "@types/node": "^20.19.32",
+    "@types/node": "^26.6.6",
     "esbuild": "^0.28.2",
-    "jsonpath-plus": "^10.0.0",
+    "jsonpath-plus": "^11.3.0",
     "tsx": "^4.23.15",
-    "typescript": "^5.4.5"
+    "typescript": "^7.0.2"
   }
 }
