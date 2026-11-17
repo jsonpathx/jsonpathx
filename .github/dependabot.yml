@@ -1,0 +1,44 @@
+# Dependabot version updates.
+#
+# Security updates are switched on in the repository settings and run as
+# soon as an advisory appears, independent of the schedules here. The
+# ignore rules and the commit prefix of the first npm entry apply to them
+# too. Version updates run on the schedules below, grouped so that each run
+# opens only a few PRs.
+version: 2
+updates:
+  - package-ecosystem: npm
+    # The root lockfile covers every workspace (apps/*, packages/*, bench).
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: deps
+    groups:
+      # All dev-dependency minor and patch updates in one PR.
+      dev-dependencies:
+        dependency-type: development
+        update-types: [minor, patch]
+      # All runtime-dependency minor and patch updates in one PR.
+      production-dependencies:
+        dependency-type: production
+        update-types: [minor, patch]
+      # Major updates separately, together in one PR, so they can be
+      # reviewed (or closed) as a set.
+      major-updates:
+        update-types: [major]
+    # No ignores: nothing in the toolchain is pinned on purpose. TypeScript,
+    # esbuild, Vite and VitePress majors arrive in the major-updates PR.
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    commit-message:
+      prefix: deps
+    groups:
+      # Every workflow action update (any semver level) in one PR.
+      github-actions:
+        patterns: ["*"]
