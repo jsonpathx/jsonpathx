@@ -29,7 +29,7 @@ The motivation is driven by jsonpath and jsonpath-plus. Both libraries are no lo
 npm install @jsonpathx/jsonpathx
 ```
 
-jsonpathx is an ES module package (named exports, no default export). CommonJS code can `require()` it on Node.js 20.19+, 22.12+ and 23+, which load ES modules through `require(esm)`; on older versions use `await import('@jsonpathx/jsonpathx')`. See [Module Formats](https://jsonpathx.github.io/jsonpathx/module-formats).
+jsonpathx is an ES module package (named exports, no default export). It needs Node.js 22 or later. CommonJS code can `require()` it on Node.js 22.12+, which loads ES modules through `require(esm)`; on 22.0–22.11 use `await import('@jsonpathx/jsonpathx')`. See [Module Formats](https://jsonpathx.github.io/jsonpathx/module-formats).
 
 ### Browser (UMD / Global)
 
@@ -40,6 +40,8 @@ jsonpathx is an ES module package (named exports, no default export). CommonJS c
   JSONPath.query('$.items[*]', { items: [1, 2, 3] }).then(console.log);
 </script>
 ```
+
+The UMD bundles are served from a CDN URL (unpkg, or `https://cdn.jsdelivr.net/npm/@jsonpathx/jsonpathx`); they are not entry points in `exports`, so don't `import` them.
 
 ## Quick Start 🚀
 

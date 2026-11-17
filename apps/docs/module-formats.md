@@ -6,7 +6,7 @@ jsonpathx is an **ES module (ESM) package** (`"type": "module"`). There is no se
 
 - **ESM**: `dist/index.js` and the modules it imports
 - **TypeScript**: `dist/index.d.ts` and the other `.d.ts` files next to the JavaScript
-- **Browser script (UMD/IIFE)**: `dist/jsonpathx.umd.js` and `dist/jsonpathx.umd.min.js`, with source maps. Loading one sets the global `window.JSONPathX`.
+- **Browser script (UMD/IIFE)**: `dist/jsonpathx.umd.js` and `dist/jsonpathx.umd.min.js`, with source maps. Loading one sets the global `window.JSONPathX`. These are for `<script>` tags from a CDN (see [Script tag](#script-tag-umd-global)); they are files in the package, not entry points in `exports`.
 
 ### Package configuration
 
@@ -22,13 +22,10 @@ jsonpathx is an **ES module (ESM) package** (`"type": "module"`). There is no se
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./umd": {
-      "default": "./dist/jsonpathx.umd.js"
-    },
-    "./umd.min": {
-      "default": "./dist/jsonpathx.umd.min.js"
     }
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
 ```
@@ -66,7 +63,7 @@ const result = await jsonpathx.JSONPath.query('$.data', { data: [1, 2, 3] });
 
 ### Dynamic import
 
-Works from ESM and from CommonJS, on every Node.js version jsonpathx supports:
+Works from ESM and from CommonJS, on every Node.js version jsonpathx supports (22+):
 
 ```javascript
 async function queryData(data) {
@@ -79,11 +76,10 @@ async function queryData(data) {
 
 ## CommonJS (`require()`)
 
-`require('@jsonpathx/jsonpathx')` loads the ESM build through Node.js's `require(esm)` support. It is **on by default** in:
+`require('@jsonpathx/jsonpathx')` loads the ESM build through Node.js's `require(esm)` support. jsonpathx needs Node.js 22 or later (`engines.node` is `>=22`); within that range `require(esm)` is **on by default** in:
 
 | Node.js line | `require()` works from | Notes |
 |--------------|------------------------|-------|
-| 20.x | 20.19.0 | |
 | 22.x | 22.12.0 | 22.12.x prints an `ExperimentalWarning`; no warning from 22.13.0 |
 | 23.x and later | 23.0.0 | covers all of Node.js 24 and 26; no warning from 23.5.0 |
 
@@ -98,7 +94,7 @@ JSONPath.query('$.users[*].name', data).then((names) => console.log(names));
 
 `require()` returns the module namespace, so use the named exports; `require('@jsonpathx/jsonpathx').default` is `undefined`.
 
-On older versions (Node.js 18, 20.0–20.18, 22.0–22.11), `require()` throws `ERR_REQUIRE_ESM`. Use [dynamic `import()`](#dynamic-import) there, or upgrade Node.js.
+On Node.js 22.0–22.11, `require()` throws `ERR_REQUIRE_ESM`. Use [dynamic `import()`](#dynamic-import) there, or upgrade to 22.12 or later.
 
 ---
 
@@ -179,7 +175,7 @@ The `unpkg` and `jsdelivr` fields point at the minified UMD build, so the short 
 </script>
 ```
 
-Pin a version in production, for example `https://unpkg.com/@jsonpathx/jsonpathx@0.1.7/dist/jsonpathx.umd.min.js`. The UMD files are classic scripts for `<script>` tags; they have no exports and no type definitions, so don't `import` them from code.
+Pin a version in production, for example `https://unpkg.com/@jsonpathx/jsonpathx@0.1.7/dist/jsonpathx.umd.min.js` or `https://cdn.jsdelivr.net/npm/@jsonpathx/jsonpathx@0.1.7/dist/jsonpathx.umd.min.js`. The UMD files are classic scripts for `<script>` tags; they have no exports and no type definitions. Earlier versions also exposed them as `@jsonpathx/jsonpathx/umd` and `@jsonpathx/jsonpathx/umd.min` in `exports`; those subpaths are gone, so load the files from a CDN URL (or copy `node_modules/@jsonpathx/jsonpathx/dist/jsonpathx.umd.min.js` into your static assets) instead of importing them.
 
 ---
 
@@ -218,8 +214,9 @@ See [CommonJS output](#commonjs-output): use `"module": "NodeNext"` with TypeScr
 
 | Environment | `import` | `require()` | Notes |
 |-------------|----------|-------------|-------|
-| Node.js 20.19+, 22.12+, 23+ | ✅ | ✅ | `require(esm)` on by default |
-| Node.js 18, 20.0–20.18, 22.0–22.11 | ✅ | ❌ | use `import()` |
+| Node.js 22.12+, 23+ | ✅ | ✅ | `require(esm)` on by default |
+| Node.js 22.0–22.11 | ✅ | ❌ | use `import()` |
+| Node.js < 22 | – | – | not supported (`engines.node` is `>=22`) |
 | Deno | ✅ | n/a | |
 | Bun | ✅ | ✅ | |
 | Browsers | ✅ via bundler or ESM CDN | n/a | or the UMD script tag |

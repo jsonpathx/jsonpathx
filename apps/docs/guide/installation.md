@@ -26,7 +26,7 @@ bun add @jsonpathx/jsonpathx
 
 ## Requirements
 
-- **Node.js**: 18.0.0 or higher
+- **Node.js**: 22 or higher
 - **TypeScript**: 5.0 or higher (optional, but recommended)
 
 ## Import
@@ -40,10 +40,10 @@ import { JSONPath } from '@jsonpathx/jsonpathx';
 ```
 
 ```javascript [CommonJS]
-// Node.js 20.19+, 22.12+ or 23+ (require(esm))
+// Node.js 22.12+ (require(esm))
 const { JSONPath } = require('@jsonpathx/jsonpathx');
 
-// On older Node.js versions, use dynamic import instead:
+// On Node.js 22.0–22.11, use dynamic import instead:
 // const { JSONPath } = await import('@jsonpathx/jsonpathx');
 ```
 
@@ -92,6 +92,8 @@ jsonpathx works in modern browsers:
   JSONPath.query('$.items[*]', data).then(console.log);
 </script>
 ```
+
+The UMD script is also on jsDelivr (`https://cdn.jsdelivr.net/npm/@jsonpathx/jsonpathx`). It is a classic script, not an entry point in `exports`, so load it with a `<script>` tag rather than importing it.
 
 ### Browser Support
 
