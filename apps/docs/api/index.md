@@ -255,7 +255,7 @@ const names = await JSONPath.create(data)
 jsonpathx follows [Semantic Versioning](https://semver.org/).
 
 - **Current version**: 0.1.0
-- **Node.js**: 18.0.0+
+- **Node.js**: 22+
 - **TypeScript**: 5.0+
 - **Browser**: Modern browsers with engine support
 

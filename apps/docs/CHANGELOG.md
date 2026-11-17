@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+Planned for 0.2.0.
+
+### Breaking
+- Node.js 22 or later is required: `engines.node` is now `>=22` (was `>=18`). Node.js 18 and 20 are end-of-life; CI tests 22, 24 and 26.
+- The `./umd` and `./umd.min` subpaths are removed from `exports`. They pointed at the browser scripts that set `window.JSONPathX`, which have no exports or types, so importing them gave nothing useful. The files are still published in `dist/`, and the `unpkg`/`jsdelivr` fields still point at `dist/jsonpathx.umd.min.js`. Load them with a `<script>` tag from a CDN instead:
+  ```html
+  <script src="https://unpkg.com/@jsonpathx/jsonpathx@0.2.0/dist/jsonpathx.umd.min.js"></script>
+  <!-- or https://cdn.jsdelivr.net/npm/@jsonpathx/jsonpathx@0.2.0 -->
+  ```
+  If you imported `@jsonpathx/jsonpathx/umd` through a bundler, import `@jsonpathx/jsonpathx` (the ESM entry) instead.
+
 ## 0.1.7 - 2026-11-16
 
 ### Changed

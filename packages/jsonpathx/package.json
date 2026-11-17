@@ -21,12 +21,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./umd": {
-      "default": "./dist/jsonpathx.umd.js"
-    },
-    "./umd.min": {
-      "default": "./dist/jsonpathx.umd.min.js"
     }
   },
   "scripts": {
@@ -38,7 +32,7 @@
     "size": "node scripts/size.mjs"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=22",
     "npm": ">=9.0.0"
   },
   "repository": {

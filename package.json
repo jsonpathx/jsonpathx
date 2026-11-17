@@ -16,7 +16,7 @@
     "docs:build": "npm run bench && npm --prefix apps/docs run build"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=22",
     "npm": ">=9.0.0"
   },
   "repository": {

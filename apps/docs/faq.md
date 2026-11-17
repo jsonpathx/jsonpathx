@@ -43,7 +43,7 @@ No. The JS engine is bundled and runs anywhere Node or modern browsers run.
 
 ### What Node.js version is required?
 
-Node.js 18+ is required.
+Node.js 22+ is required (`engines.node` is `>=22`).
 
 ---
 

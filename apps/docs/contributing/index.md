@@ -17,7 +17,7 @@ There are many ways to contribute to jsonpathx:
 
 ### Prerequisites
 
-- Node.js 18.0.0 or higher
+- Node.js 22 or higher
 - npm 9.0.0 or higher
 - Git
 
