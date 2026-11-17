@@ -1,7 +1,7 @@
 node_modules/
 apps/docs/.vitepress/dist/
 /vendor/
-/docs/
+/agents/
 /apps/docs/bench.json
 .codex/
 /temp/
