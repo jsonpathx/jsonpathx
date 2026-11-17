@@ -1,8 +1,6 @@
 # Changelog
 
-## Unreleased
-
-Planned for 0.2.0.
+## 0.2.0 - 2026-11-17
 
 ### Breaking
 - Node.js 22 or later is required: `engines.node` is now `>=22` (was `>=18`). Node.js 18 and 20 are end-of-life; CI tests 22, 24 and 26.
@@ -12,6 +10,10 @@ Planned for 0.2.0.
   <!-- or https://cdn.jsdelivr.net/npm/@jsonpathx/jsonpathx@0.2.0 -->
   ```
   If you imported `@jsonpathx/jsonpathx/umd` through a bundler, import `@jsonpathx/jsonpathx` (the ESM entry) instead.
+
+### Changed
+- The docs describe the package as it is: ESM only, with named exports and no default export. `require()` works on Node versions with require(esm) support (20.19+, 22.12+).
+- Built and tested with TypeScript 7 and Vite 8. The published ESM output and type declarations are unchanged from 0.1.7.
 
 ## 0.1.7 - 2026-11-16
 
