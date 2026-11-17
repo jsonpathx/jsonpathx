@@ -31,23 +31,25 @@ bun add @jsonpathx/jsonpathx
 
 ## Import
 
-jsonpathx supports both ESM and CommonJS:
+jsonpathx is an ES module package with named exports (there is no default export):
 
 ::: code-group
 
 ```typescript [ESM]
 import { JSONPath } from '@jsonpathx/jsonpathx';
-// or
-import JSONPath from '@jsonpathx/jsonpathx';
 ```
 
-```typescript [CommonJS]
+```javascript [CommonJS]
+// Node.js 20.19+, 22.12+ or 23+ (require(esm))
 const { JSONPath } = require('@jsonpathx/jsonpathx');
-// or
-const JSONPath = require('@jsonpathx/jsonpathx').default;
+
+// On older Node.js versions, use dynamic import instead:
+// const { JSONPath } = await import('@jsonpathx/jsonpathx');
 ```
 
 :::
+
+There is no separate CommonJS build: `require()` loads the ESM build on Node.js versions with `require(esm)` support. See [Module Formats](../module-formats.md) for details.
 
 ## TypeScript Configuration
 

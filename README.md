@@ -29,6 +29,8 @@ The motivation is driven by jsonpath and jsonpath-plus. Both libraries are no lo
 npm install @jsonpathx/jsonpathx
 ```
 
+jsonpathx is an ES module package (named exports, no default export). CommonJS code can `require()` it on Node.js 20.19+, 22.12+ and 23+, which load ES modules through `require(esm)`; on older versions use `await import('@jsonpathx/jsonpathx')`. See [Module Formats](https://jsonpathx.github.io/jsonpathx/module-formats).
+
 ### Browser (UMD / Global)
 
 ```html
